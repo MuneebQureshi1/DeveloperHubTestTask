@@ -3,9 +3,9 @@ import Animated, {
   type SharedValue,
   useAnimatedStyle,
 } from 'react-native-reanimated';
-import type { ThemeColors } from '../../../constants/theme';
-import { fontScale } from '../../../utils/responsiveness/responsive';
-import { Utility, Utility_Horizontal } from '../../../utils/responsiveness/utility';
+import type { ThemeColors } from '../../constants/theme';
+import { Utility } from '../../utils/responsiveness/utility';
+import { resolutionButtonsStyles as styles } from './styles/ResolutionButtons.styles';
 
 interface ResolutionButtonProps {
   label: string;
@@ -110,20 +110,5 @@ function ResolutionButtons({
     </>
   );
 }
-
-const styles = {
-  buttonBase: {
-    alignItems: 'center' as const,
-    borderRadius: Utility.SP_12,
-    marginBottom: Utility.SP_12,
-    paddingHorizontal: Utility_Horizontal.SP_24,
-    paddingVertical: Utility.SP_14,
-    width: '100%' as const,
-  },
-  label: {
-    fontSize: fontScale(15),
-    fontWeight: '700' as const,
-  },
-};
 
 export default ResolutionButtons;

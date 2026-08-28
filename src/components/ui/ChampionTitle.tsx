@@ -3,9 +3,8 @@ import Animated, {
   type SharedValue,
   useAnimatedStyle,
 } from 'react-native-reanimated';
-import type { ThemeColors } from '../../../constants/theme';
-import { fontScale } from '../../../utils/responsiveness/responsive';
-import { Utility } from '../../../utils/responsiveness/utility';
+import type { ThemeColors } from '../../constants/theme';
+import { championTitleStyles as styles } from './styles/ChampionTitle.styles';
 
 interface ChampionTitleProps {
   scale: SharedValue<number>;
@@ -39,15 +38,5 @@ function ChampionTitle({
     </Animated.View>
   );
 }
-
-const styles = {
-  title: {
-    fontSize: fontScale(28),
-    fontWeight: '900' as const,
-    letterSpacing: Utility.SP_2,
-    textAlign: 'center' as const,
-    textTransform: 'uppercase' as const,
-  },
-};
 
 export default ChampionTitle;

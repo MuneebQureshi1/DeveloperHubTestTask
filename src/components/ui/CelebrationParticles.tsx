@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import Animated, {
   cancelAnimation,
   useAnimatedStyle,
@@ -8,7 +8,8 @@ import Animated, {
   withSequence,
   withTiming,
 } from 'react-native-reanimated';
-import type { ThemeColors } from '../../../constants/theme';
+import type { ThemeColors } from '../../constants/theme';
+import { celebrationParticlesStyles as styles } from './styles/CelebrationParticles.styles';
 
 const PARTICLE_COUNT = 16;
 
@@ -121,16 +122,5 @@ function CelebrationParticles({ colors, burstToken }: CelebrationParticlesProps)
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    ...StyleSheet.absoluteFill,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  particle: {
-    position: 'absolute',
-  },
-});
 
 export default CelebrationParticles;

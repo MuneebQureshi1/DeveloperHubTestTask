@@ -128,11 +128,13 @@ Dark appearance is recommended for the intended near-black, gold-accented look. 
 
 `src/screens/Home/ui/HomeScreen.tsx` — hosts the Winner Ceremony UI (plus Language → Settings).
 
-`src/screens/WinnerCeremony/` — ceremony components, animation hook, styles, and mock data used by Home.
+`src/components/ui/` — ceremony UI pieces (cards, countdown, champion title, particles, buttons).
+
+`src/components/styles/` — styles for those shared components.
+
+`src/screens/WinnerCeremony/` — sequence hook, screen styles, and mock data.
 
 `src/navigation/RootNavigator.tsx` — native stack; Home is the initial route.
-
-`src/store/useThemeStore.ts` — persisted light/dark appearance.
 
 ## Technical Decisions
 

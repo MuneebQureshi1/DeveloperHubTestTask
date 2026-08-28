@@ -8,7 +8,7 @@ import {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-import type { CreatorSide } from '../../../types/creator';
+import type { CreatorSide } from '../types/creator';
 
 const COUNTDOWN_START = 5;
 const COUNTDOWN_INTERVAL_MS = 1000;

@@ -9,16 +9,15 @@ import { useLanguageStore } from '../../../store/useLanguageStore';
 import type { HomeScreenProps } from '../../../types/navigation';
 import { resolveBattleOutcome } from '../../../types/creator';
 import { Utility } from '../../../utils/responsiveness/utility';
-import CelebrationParticles from '../../WinnerCeremony/components/CelebrationParticles';
-import ChampionTitle from '../../WinnerCeremony/components/ChampionTitle';
-import CountdownDisplay from '../../WinnerCeremony/components/CountdownDisplay';
-import CreatorCard, {
-  WINNER_CENTER_OFFSET,
-} from '../../WinnerCeremony/components/CreatorCard';
-import ResolutionButtons from '../../WinnerCeremony/components/ResolutionButtons';
-import { MOCK_CREATORS } from '../../WinnerCeremony/data/mockCreators';
-import { useCeremonySequence } from '../../WinnerCeremony/hooks/useCeremonySequence';
-import { stylesByScheme as ceremonyStylesByScheme } from '../../WinnerCeremony/styles/WinnerCeremonyScreen.styles';
+import CelebrationParticles from '../../../components/ui/CelebrationParticles';
+import ChampionTitle from '../../../components/ui/ChampionTitle';
+import CountdownDisplay from '../../../components/ui/CountdownDisplay';
+import CreatorCard from '../../../components/ui/CreatorCard';
+import ResolutionButtons from '../../../components/ui/ResolutionButtons';
+import { WINNER_CENTER_OFFSET } from '../../../components/ui/styles/CreatorCard.styles';
+import { MOCK_CREATORS } from '../../../constants/constantsArray';
+import { useCeremonySequence } from '../../../hooks/useCeremonySequence';
+import { stylesByScheme as ceremonyStylesByScheme } from '../styles/HomeScreen.styles';
 
 function HomeScreen({ navigation }: HomeScreenProps) {
   const { t } = useTranslation();
@@ -86,16 +85,6 @@ function HomeScreen({ navigation }: HomeScreenProps) {
     opacity: sharedValues.resolutionOpacity.value,
     transform: [{ translateY: sharedValues.resolutionTranslateY.value }],
   }));
-
-  const cardStyles = {
-    panel: ceremonyStyles.panel,
-    avatar: ceremonyStyles.avatar,
-    name: ceremonyStyles.name,
-    category: ceremonyStyles.category,
-    scoreLabel: ceremonyStyles.scoreLabel,
-    score: ceremonyStyles.score,
-    flashOverlay: ceremonyStyles.flashOverlay,
-  };
 
   return (
     <View style={[globalStyles.screen, ceremonyStyles.screen]}>
@@ -169,7 +158,6 @@ function HomeScreen({ navigation }: HomeScreenProps) {
               scoreFlash={sharedValues.leftScoreFlash}
               goldGlow={sharedValues.leftGoldGlow}
               colors={colors}
-              styles={cardStyles}
               scoreLabel={t('score')}
             />
           </Animated.View>
@@ -179,7 +167,6 @@ function HomeScreen({ navigation }: HomeScreenProps) {
               scoreFlash={sharedValues.rightScoreFlash}
               goldGlow={sharedValues.rightGoldGlow}
               colors={colors}
-              styles={cardStyles}
               scoreLabel={t('score')}
             />
           </Animated.View>
