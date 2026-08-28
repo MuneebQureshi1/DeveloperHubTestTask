@@ -1,31 +1,97 @@
-# Stage Feed
+# Developer Hub — Stage Feed
 
-Vertical, full screen performance feed for the Developer Hub test task. The app is a React Native CLI project (not Expo). Work for this pass lives on the `Test_TasK_1` branch.
+React Native CLI app (not Expo) for **Task 1**: a vertical, full-screen performance feed.
 
-The Home screen is a snap paging feed of 10 mock performances. Each item fills the screen with looping video, creator details, Follow / Following, Applaud with a clap burst, and a Battle chip on three items.
+The app opens on **Home** — a TikTok-style snap feed of 10 mock performances. Each item fills the viewport with looping video, creator overlay, Follow / Following, Applaud with a clap burst, and a Battle countdown chip on three items.
+
+Branch: `Test_TasK_1`
+
+---
+
+## Preview
+
+First performance in the feed (dark theme). Full-bleed looping video with a dim overlay, creator line, gold Follow button, and applaud control.
+
+![Stage Feed — Amara K. Spoken Word performance with Follow button, 1,245 applause count, and Language chip in the top bar.](docs/stage-feed-dark.jpg)
+
+| | |
+| --- | --- |
+| Feed | 10 mock performances from local JSON |
+| Video | Remote MP4 via `react-native-video`, cover fit, loop |
+| Interactions | Follow toggle, Applaud + clap burst animation |
+| Battle chips | 3 items — upcoming countdown (gold) or **Battle Live** (red) |
+
+Light / dark appearance is available in **Settings** (Language button → top right on Home).
+
+---
+
+## What the app does
+
+### Feed
+
+- Vertical **snap paging** — one performance per screen, swipe up/down.
+- Only the **active** item plays video with sound. Neighbors stay paused and muted.
+- Shimmer placeholder until the first frame is ready; a short buffering indicator on rebuffer.
+- Video players attach with a staggered delay so the first clip loads fast and off-screen rows do not all decode at once.
+
+### Overlay
+
+- Creator name and talent category, e.g. `Amara K. • Spoken Word`.
+- **Follow** / **Following** toggle (session state, not persisted).
+- **Applaud** — count increments, button scales, clap emoji bursts fly toward center.
+
+### Battle chip
+
+Three performances include a battle start time (computed from offsets at launch):
+
+| Creator | Category | Chip behaviour |
+| --- | --- | --- |
+| Sofia P. | Jazz Vocals | `Battle in 1h 24m` — ticks down every second |
+| Elena V. | Piano | `Battle Live` — offset is already in the past |
+| Luca B. | Acoustic Guitar | `Battle in 2h 15m` — ticks down every second |
+
+When a countdown reaches zero, the same chip flips to **Battle Live** without remounting.
+
+### Out of scope
+
+Live streaming pipeline, backend API, persisted follow/applause, and the Battle ceremony itself.
+
+---
+
+## Stack
+
+| | |
+| --- | --- |
+| Runtime | React Native **0.87**, React **19**, TypeScript |
+| Video | **react-native-video** 6 — MP4, loop, buffer config |
+| Animation | React Native **Animated** API (`useNativeDriver`) for clap burst + applaud scale |
+| Navigation | React Navigation native stack (Home → Settings) |
+| State | Zustand (theme, language, shared clock) |
+| i18n | i18next + react-native-localize (25 locales) |
+| Persistence | react-native-keychain for language + appearance |
+
+---
 
 ## Prerequisites
 
-Complete these before cloning.
+1. **Node.js 22.11.0+** — React Native 0.87 officially supports `^22.13`, `^24.3`, or `>=26`. Node 25 works with **npm** (warnings only); **yarn** may refuse to install.
+2. **Watchman** on macOS if Metro file watching is flaky.
+3. Official RN environment: https://reactnative.dev/docs/set-up-your-environment
+4. **iOS:** Xcode, CocoaPods, Simulator.
+5. **Android:** Android Studio, JDK, emulator (or USB device with debugging), SDK licenses accepted.
 
-1. Install Node.js 22.11.0 or newer.
-2. Install Watchman (macOS) if Metro file watching is unreliable.
-3. Follow the official React Native environment guide for your machine: https://reactnative.dev/docs/set-up-your-environment
-4. For iOS: install Xcode, CocoaPods, and the iOS Simulator.
-5. For Android: install Android Studio, a JDK, an emulator (or a USB device with USB debugging), and accept the Android SDK licenses.
-
-Confirm Node is ready:
+Confirm:
 
 ```sh
 node -v
 npm -v
 ```
 
+---
+
 ## Setup
 
-### Step 1. Get the source
-
-Clone the repository and switch to this task branch:
+### 1. Clone and branch
 
 ```sh
 git clone https://github.com/MuneebQureshi1/DeveloperHubTestTask.git
@@ -33,167 +99,260 @@ cd DeveloperHubTestTask
 git checkout Test_TasK_1
 ```
 
-If the repository is already on disk:
+Already cloned:
 
 ```sh
 git fetch origin
 git checkout Test_TasK_1
 ```
 
-### Step 2. Install JavaScript packages
+### 2. Install JavaScript packages
 
-From the project root:
+Use **npm**, not yarn (see Troubleshooting):
+
+```sh
+npm ci
+```
+
+First time or after dependency changes:
 
 ```sh
 npm install
 ```
 
-### Step 3. Install iOS pods (iOS only)
+### 3. iOS pods (iOS only)
 
-Run this the first time you clone, and again after native dependency changes (`react-native-video`, `react-native-localize`, or `react-native-keychain`):
+First clone, and again after native deps change (`react-native-video`, `react-native-localize`, `react-native-keychain`):
 
 ```sh
 bundle install
 bundle exec pod install --project-directory=ios
 ```
 
-Skip this step if you only plan to run Android.
+Or:
 
-### Step 4. Start Metro
+```sh
+cd ios && pod install && cd ..
+```
 
-In the first terminal, from the project root:
+Skip for Android-only.
+
+### 4. Metro
 
 ```sh
 npm start
 ```
 
-Leave this process running. If Metro was already running with a stale cache, stop it and start with a reset:
+Stale cache or after dependency fixes:
 
 ```sh
 npm start -- --reset-cache
 ```
 
-### Step 5. Run on iOS
-
-In a second terminal:
+### 5. iOS
 
 ```sh
 npm run ios
 ```
 
-The app opens on the Stage Feed (Home) screen. The first launch can take several minutes while Xcode builds.
-
-To target a specific simulator:
+First Xcode build can take several minutes. Specific simulator:
 
 ```sh
 npx react-native run-ios --simulator="iPhone 16"
 ```
 
-### Step 6. Run on Android
+### 6. Android
 
-Start an emulator from Android Studio (Device Manager), then in a second terminal:
+Start an emulator, then:
 
 ```sh
 npm run android
 ```
 
-The app opens on the Stage Feed (Home) screen.
-
-### Step 7. Run unit tests (optional)
+### 7. Tests (optional)
 
 ```sh
 npm test -- --watchAll=false --watchman=false
 ```
 
-This covers count formatting and Battle countdown edge cases in `__tests__/formatters.test.ts`, plus a smoke render of `App`.
+Covers `formatCount`, `formatDuration`, `getBattleStatus`, and a smoke render of `App`.
 
-## What you should see
+---
 
-1. Swipe vertically. Each swipe lands on one full screen performance.
-2. Overlay text shows creator name and talent category, for example `Amara K. • Spoken Word`.
-3. Tap Follow. The label switches to Following. Tap again to undo.
-4. Tap the clap. The count increments, the button scales, and a clap burst animates.
-5. On Sofia P. (Jazz Vocals) the gold chip reads `Battle in 1h 24m` and ticks down.
-6. On Elena V. (Piano) the chip is red and reads `Battle Live` because that timestamp is already in the past.
-7. On Luca B. (Acoustic Guitar) the chip reads `Battle in 2h 15m`.
-8. Open Settings from the Language control to change language or appearance. This is extra to the brief.
+## How to review
+
+1. Launch — first clip autoplays full screen (Amara K.).
+2. Swipe up — snap to the next performance; previous pauses.
+3. Tap **Follow** — label becomes **Following**; tap again to undo.
+4. Tap **👏** — count increments, button bounces, clap burst animates to center.
+5. Swipe to **Sofia P.** — gold chip counts down (`Battle in …`).
+6. Swipe to **Elena V.** — red **Battle Live** chip.
+7. Swipe to **Luca B.** — another countdown chip.
+8. Tap **Language** (top right) → Settings for locale or light/dark.
+
+---
 
 ## Project layout
 
-`App.tsx` starts the shared clock, hydrates language and theme, and mounts navigation.
+```
+App.tsx                              # shared clock, hydrate stores, navigation
+src/
+  screens/Home/ui/HomeScreen.tsx     # vertical FlatList, follow + applause state
+  screens/Home/styles/
+  screens/Settings/                  # language + appearance pickers
+  components/common/
+    PerformanceFeedItem.tsx          # video, overlay, follow, applaud, battle chip
+    styles/
+  components/ui/
+    ApplaudButton.tsx                # scale animation + burst trigger
+    ClapBurst.tsx                    # emoji flies to center, fades out
+    BattleChip.tsx                   # countdown / live chip (subscribes to clock)
+    BufferingIndicator.tsx
+    Shimmer.tsx
+    styles/
+  constants/
+    performances.json                # 10 mock items (source of truth)
+    constantsArray.ts                # maps battle offsets → ISO timestamps
+    theme.ts                         # dark / light tokens
+  store/
+    useCurrentTimeStore.ts           # 1 Hz tick for battle chips only
+    useLanguageStore.ts
+    useThemeStore.ts
+  utils/formatters.ts                # count, duration, battle status
+  navigation/RootNavigator.tsx
+  languageConfig/                    # i18n (25 locales)
+docs/
+  stage-feed-dark.jpg                # screenshot used above
+metro.config.js                      # zustand resolver (see Troubleshooting)
+```
 
-`src/navigation/RootNavigator.tsx` is a native stack. Home is the initial route. Settings is optional.
+---
 
-`src/screens/Home/ui/HomeScreen.tsx` owns the vertical `FlatList`, follow state, and applause counts.
+## Architecture
 
-`src/components/common/PerformanceFeedItem.tsx` renders one performance: video, overlay, Follow, Applaud, Battle chip.
-
-`src/components/ui/ApplaudButton.tsx` and `src/components/ui/ClapBurst.tsx` handle the clap animation.
-
-`src/components/ui/BattleChip.tsx` reads the shared clock and shows countdown or Battle Live.
-
-`src/constants/performances.json` is the local mock feed (10 items).
-
-`src/constants/constantsArray.ts` loads that JSON and turns Battle offsets into ISO timestamps.
-
-`src/store/useCurrentTimeStore.ts` ticks once per second for countdown chips only.
-
-`src/store/useLanguageStore.ts` and `src/store/useThemeStore.ts` persist language and appearance in the OS keychain.
-
-## Mock data
-
-The brief asked for a local JSON array of 8 to 10 items. The source of truth is `src/constants/performances.json`.
-
-Each object has `id`, `creatorName`, `talentCategory`, `media` (a public MP4 URL), and `applauseCount`. Three objects also have `battleStartsAtOffsetMinutes`:
-
-1. `84` on Sofia P. so the chip starts at about `Battle in 1h 24m`.
-2. `-10` on Elena V. so the chip starts as `Battle Live`.
-3. `135` on Luca B. so the chip starts at about `Battle in 2h 15m`.
-
-JSON cannot call `Date.now()`, so offsets are stored instead of frozen ISO strings. `constantsArray.ts` maps each offset to `battleStartsAt` at launch. That keeps the countdown demo valid every time the app starts.
-
-## Feed and scroll
+### Feed and scroll performance
 
 Home uses a vertical `FlatList`, not a `ScrollView`, so only a small window of rows stays mounted.
 
-1. Item height is the measured viewport. `getItemLayout` uses that height so paging math stays exact.
-2. iOS uses `pagingEnabled`. Android uses `snapToInterval` plus `disableIntervalMomentum`.
-3. `initialNumToRender={1}` mounts the first clip only.
-4. `maxToRenderPerBatch={1}` adds at most one extra row per batch.
-5. `windowSize={3}` keeps roughly the current row and its two neighbors in memory.
-6. `onViewableItemsChanged` (80% visible) marks the active item. Only that player plays and unmutes. Neighbors stay paused.
+| Setting | Value | Why |
+| --- | --- | --- |
+| Item height | Measured viewport | Exact paging math via `getItemLayout` |
+| iOS paging | `pagingEnabled` | Native snap |
+| Android paging | `snapToInterval` + `disableIntervalMomentum` | Match iOS feel |
+| `initialNumToRender` | 1 | First clip only on launch |
+| `maxToRenderPerBatch` | 1 | One extra row per batch |
+| `windowSize` | 3 | Current + two neighbors |
+| Active detection | `onViewableItemsChanged` @ 80% | Play/unmute only the visible item |
 
-## Battle countdown
+### Video lifecycle
 
-`App.tsx` starts `useCurrentTimeStore` on mount and clears the interval on unmount.
+`PerformanceFeedItem` delays attaching `react-native-video` until the row is active or nearby (700 ms for neighbor, longer for distant rows). Active player: loop, cover, unmuted. Inactive: paused, muted, volume 0. Buffer config keeps playback responsive on mid-tier devices.
 
-`BattleChip` is the only UI that subscribes to `now`. Items without a battle do not re-render from the clock.
+### Battle countdown
 
-`getBattleStatus` in `src/utils/formatters.ts`:
+`App.tsx` starts `useCurrentTimeStore` on mount (1 s interval) and clears on unmount.
 
-1. Missing or invalid `battleStartsAt` returns nothing (no chip).
-2. A timestamp in the past returns live (red `Battle Live`).
-3. A timestamp in the future returns remaining milliseconds, formatted as `1h 24m`, then minutes, then seconds.
+Only `BattleChip` subscribes to `now`. Performances without a battle never re-render from the clock.
 
-When remaining time hits zero, the same chip flips to live without a remount.
+`getBattleStatus(battleStartsAt, now)`:
 
-## State
+1. Missing / invalid timestamp → no chip.
+2. Past → `{ kind: 'live' }` → red **Battle Live**.
+3. Future → `{ kind: 'upcoming', remainingMs }` → gold `Battle in {time}` via `formatDuration`.
 
-Follow and applause live on Home as records keyed by performance id. Item-local state would reset when `FlatList` recycles a row. Updates are immutable. `React.memo` on `PerformanceFeedItem` skips rows whose follow and applause props did not change.
+### Mock data
 
-Language and theme are Zustand stores, not React context, and they persist in the keychain. Follow and applause are not persisted, matching the brief.
+Brief asked for 8–10 local JSON items. Source: `src/constants/performances.json`.
 
-## Theme and media
+Each object: `id`, `creatorName`, `talentCategory`, `media` (public MP4 URL), `applauseCount`. Three also have `battleStartsAtOffsetMinutes`:
 
-Dark palette is near black (`#0A0A0A`), white overlay text, and gold (`#D4A94A`) on the Battle chip and a few accents. A light palette exists in Settings. Overlay copy on video stays high contrast in both modes.
+- `84` on Sofia P. → ~`1h 24m` at launch
+- `-10` on Elena V. → already live
+- `135` on Luca B. → ~`2h 15m` at launch
 
-Media is remote MP4 through `react-native-video`, full bleed, `resizeMode="cover"`, looping. This is local autoplay of stock clips, not a live streaming pipeline.
+JSON cannot call `Date.now()`, so offsets are stored and `constantsArray.ts` converts them to ISO `battleStartsAt` at startup. Countdown demos stay valid on every run.
+
+### State
+
+| State | Where | Persisted |
+| --- | --- | --- |
+| Follow | Home `Record<id, boolean>` | No |
+| Applause count | Home `Record<id, number>` | No |
+| Language | Zustand + keychain | Yes |
+| Theme | Zustand + keychain | Yes |
+| Clock | Zustand module singleton | No |
+
+Follow and applause live on Home (not inside feed items) so `FlatList` recycling does not reset them. `React.memo` on `PerformanceFeedItem` skips rows whose follow/applause props are unchanged.
+
+### Theme
+
+Dark: near-black `#0A0A0A`, white overlay text, gold `#D4A94A` on Follow and upcoming Battle chips. Live chip uses red accent. Light palette available in Settings; overlay copy stays high contrast on video in both modes.
+
+### Why the feed is built this way
+
+Paging keeps one performance in focus like a stage, the shared clock updates only battle chips instead of the whole list, and lazy video attach plus a tight render window keep memory and decode cost bounded while swiping through ten full-screen clips.
+
+---
+
+## Troubleshooting
+
+### `zustand/index.js` could not be resolved
+
+Usually a corrupted `node_modules` after a failed **yarn** install.
+
+```sh
+rm -rf node_modules
+npm ci
+npm start -- --reset-cache
+```
+
+`metro.config.js` includes an explicit resolver for `zustand` as a safeguard.
+
+### Yarn install fails on Node 25
+
+Yarn enforces engine checks strictly. Use **npm**:
+
+```sh
+npm ci
+```
+
+Or switch to Node **22 LTS** / **24** via nvm.
+
+### Watchman recrawl warnings
+
+```sh
+watchman watch-del '/Users/muhammadmuneeb/Desktop/DeveloperHubTestTask'
+watchman watch-project '/Users/muhammadmuneeb/Desktop/DeveloperHubTestTask'
+```
+
+### Video black screen / slow first frame
+
+Remote MP4 URLs need network. Wait for shimmer to clear, or swipe away and back. Simulator network must be active.
+
+### Mixed package managers
+
+This repo ships `package-lock.json`. Prefer **npm ci** over yarn to avoid lockfile drift.
+
+---
 
 ## With more time
 
-1. Prefetch and cache the next clip so the first frame is ready before the swipe lands.
-2. Serve HLS / adaptive bitrate instead of a single MP4 URL.
-3. Load the feed from a backend and persist follow plus applause.
-4. Accessibility pass: reduced motion, larger hit targets, screen reader order.
-5. Broader unit coverage and E2E swipe tests.
-6. A 30 to 60 second screen recording of the running app (required deliverable, not in this repo yet).
+- Prefetch next clip so first frame is ready before the swipe lands
+- HLS / adaptive bitrate instead of single MP4 URLs
+- Backend feed + persist follow and applause
+- Reduced-motion mode and fuller VoiceOver on overlay controls
+- Broader unit coverage and E2E vertical swipe tests
+- Home-screen theme toggle (currently Settings only)
+
+---
+
+## Screen recording (30–60 s)
+
+1. Launch — show first performance autoplaying full screen.
+2. Swipe through 2–3 items — show snap paging and pause/play behaviour.
+3. Tap **Follow** and **Applaud** — show count + clap burst.
+4. Show a **Battle in …** chip ticking (Sofia or Luca).
+5. Show **Battle Live** on Elena V.
+6. Optional: open Settings, switch language or theme, return to feed.
+
+Screen recording is a required deliverable but is not included in this repo.
