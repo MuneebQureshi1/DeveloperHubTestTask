@@ -1,5 +1,4 @@
 {
-  "Hello_World": "مرحبا بالعالم",
   "follow": "متابعة",
   "following": "تتم المتابعة",
   "battleLive": "المعركة مباشرة",
@@ -7,5 +6,8 @@
   "applaud": "تصفيق، {{count}}",
   "language": "اللغة",
   "settings": "الإعدادات",
-  "selectLanguage": "اختر اللغة"
+  "selectLanguage": "اختر اللغة",
+  "appearance": "المظهر",
+  "lightMode": "فاتح",
+  "darkMode": "داكن"
 }

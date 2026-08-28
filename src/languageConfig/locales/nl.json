@@ -1,5 +1,4 @@
 {
-  "Hello_World": "Hallo wereld",
   "follow": "Volgen",
   "following": "Volgend",
   "battleLive": "Battle live",
@@ -7,5 +6,8 @@
   "applaud": "Applaus, {{count}}",
   "language": "Taal",
   "settings": "Instellingen",
-  "selectLanguage": "Selecteer taal"
+  "selectLanguage": "Selecteer taal",
+  "appearance": "Weergave",
+  "lightMode": "Licht",
+  "darkMode": "Donker"
 }

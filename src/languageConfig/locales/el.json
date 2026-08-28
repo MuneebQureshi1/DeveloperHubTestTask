@@ -1,5 +1,4 @@
 {
-  "Hello_World": "Γεια σου κόσμε",
   "follow": "Ακολουθήστε",
   "following": "Ακολουθείτε",
   "battleLive": "Μάχη ζωντανά",
@@ -7,5 +6,8 @@
   "applaud": "Χειροκρότημα, {{count}}",
   "language": "Γλώσσα",
   "settings": "Ρυθμίσεις",
-  "selectLanguage": "Επιλογή γλώσσας"
+  "selectLanguage": "Επιλογή γλώσσας",
+  "appearance": "Εμφάνιση",
+  "lightMode": "Φωτεινό",
+  "darkMode": "Σκοτεινό"
 }

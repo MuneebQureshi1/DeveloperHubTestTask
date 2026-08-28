@@ -1,5 +1,4 @@
 {
-  "Hello_World": "Olá mundo",
   "follow": "Seguir",
   "following": "Seguindo",
   "battleLive": "Batalha ao vivo",
@@ -7,5 +6,8 @@
   "applaud": "Aplaudir, {{count}}",
   "language": "Idioma",
   "settings": "Configurações",
-  "selectLanguage": "Selecionar idioma"
+  "selectLanguage": "Selecionar idioma",
+  "appearance": "Aparência",
+  "lightMode": "Claro",
+  "darkMode": "Escuro"
 }

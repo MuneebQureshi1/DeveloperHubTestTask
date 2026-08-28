@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { formatCount } from '../../utils/formatters';
-import { globalStyles } from '../../globalStyles';
+import { useGlobalStyles } from '../../globalStyles';
 import type { ClapOrigin } from './ClapBurst';
 import { styles } from './styles/ApplaudButton.styles';
 
@@ -20,6 +20,7 @@ interface ApplaudButtonProps {
 
 function ApplaudButton({ count, onPress, onBurst }: ApplaudButtonProps) {
   const { t } = useTranslation();
+  const globalStyles = useGlobalStyles();
   const scale = useRef(new Animated.Value(1)).current;
   const displayCount = Number.isFinite(count) ? Math.max(0, count) : 0;
 

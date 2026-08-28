@@ -1,5 +1,4 @@
 {
-  "Hello_World": "Merhaba dünya",
   "follow": "Takip et",
   "following": "Takip ediliyor",
   "battleLive": "Battle canlı",
@@ -7,5 +6,8 @@
   "applaud": "Alkış, {{count}}",
   "language": "Dil",
   "settings": "Ayarlar",
-  "selectLanguage": "Dil seç"
+  "selectLanguage": "Dil seç",
+  "appearance": "Görünüm",
+  "lightMode": "Açık",
+  "darkMode": "Koyu"
 }

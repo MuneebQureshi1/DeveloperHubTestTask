@@ -1,5 +1,4 @@
 {
-  "Hello_World": "হ্যালো বিশ্ব",
   "follow": "ফলো",
   "following": "ফলো করা হচ্ছে",
   "battleLive": "ব্যাটল লাইভ",
@@ -7,5 +6,8 @@
   "applaud": "তালি, {{count}}",
   "language": "ভাষা",
   "settings": "সেটিংস",
-  "selectLanguage": "ভাষা নির্বাচন করুন"
+  "selectLanguage": "ভাষা নির্বাচন করুন",
+  "appearance": "চেহারা",
+  "lightMode": "হালকা",
+  "darkMode": "গাঢ়"
 }

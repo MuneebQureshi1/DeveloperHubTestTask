@@ -1,5 +1,4 @@
 {
-  "Hello_World": "Salut lume",
   "follow": "Urmărește",
   "following": "Urmărești",
   "battleLive": "Battle live",
@@ -7,5 +6,8 @@
   "applaud": "Aplauze, {{count}}",
   "language": "Limbă",
   "settings": "Setări",
-  "selectLanguage": "Selectează limba"
+  "selectLanguage": "Selectează limba",
+  "appearance": "Aspect",
+  "lightMode": "Deschis",
+  "darkMode": "Întunecat"
 }

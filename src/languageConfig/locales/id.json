@@ -1,5 +1,4 @@
 {
-  "Hello_World": "Halo dunia",
   "follow": "Ikuti",
   "following": "Mengikuti",
   "battleLive": "Battle langsung",
@@ -7,5 +6,8 @@
   "applaud": "Tepuk tangan, {{count}}",
   "language": "Bahasa",
   "settings": "Pengaturan",
-  "selectLanguage": "Pilih bahasa"
+  "selectLanguage": "Pilih bahasa",
+  "appearance": "Tampilan",
+  "lightMode": "Terang",
+  "darkMode": "Gelap"
 }

@@ -1,5 +1,4 @@
 {
-  "Hello_World": "Xin chào thế giới",
   "follow": "Theo dõi",
   "following": "Đang theo dõi",
   "battleLive": "Battle trực tiếp",
@@ -7,5 +6,8 @@
   "applaud": "Vỗ tay, {{count}}",
   "language": "Ngôn ngữ",
   "settings": "Cài đặt",
-  "selectLanguage": "Chọn ngôn ngữ"
+  "selectLanguage": "Chọn ngôn ngữ",
+  "appearance": "Giao diện",
+  "lightMode": "Sáng",
+  "darkMode": "Tối"
 }

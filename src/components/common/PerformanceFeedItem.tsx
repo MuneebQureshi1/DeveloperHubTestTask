@@ -3,14 +3,14 @@ import { Pressable, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import Video from 'react-native-video';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { colors } from '../../constants/theme';
-import { globalStyles } from '../../globalStyles';
+import { useGlobalStyles } from '../../globalStyles';
 import { useLanguageStore } from '../../store/useLanguageStore';
+import { useAppTheme } from '../../store/useThemeStore';
 import type { Performance } from '../../types/performance';
 import ApplaudButton from '../ui/ApplaudButton';
 import BattleChip from '../ui/BattleChip';
 import ClapBurst, { type ClapOrigin } from '../ui/ClapBurst';
-import { styles } from './styles/PerformanceFeedItem.styles';
+import { stylesByScheme } from './styles/PerformanceFeedItem.styles';
 
 interface PerformanceFeedItemProps {
   item: Performance;
@@ -33,6 +33,9 @@ function PerformanceFeedItem({
 }: PerformanceFeedItemProps) {
   const { t } = useTranslation();
   const isRtl = useLanguageStore(state => state.isRtl);
+  const { colors, scheme } = useAppTheme();
+  const globalStyles = useGlobalStyles();
+  const styles = stylesByScheme[scheme];
   const insets = useSafeAreaInsets();
   const burstIdRef = useRef(0);
   const [bursts, setBursts] = useState<Array<ClapOrigin & { id: number }>>([]);
@@ -94,8 +97,8 @@ function PerformanceFeedItem({
                 numberOfLines={1}
               >
                 {item.creatorName}
-                <Text style={globalStyles.textSecondary}> • </Text>
-                <Text style={globalStyles.textSecondary}>
+                <Text style={globalStyles.overlayTextSecondary}> • </Text>
+                <Text style={globalStyles.overlayTextSecondary}>
                   {item.talentCategory}
                 </Text>
               </Text>
@@ -112,7 +115,7 @@ function PerformanceFeedItem({
                 <Text
                   style={[
                     styles.followLabel,
-                    isFollowing && globalStyles.textPrimary,
+                    isFollowing && styles.followLabelActive,
                     isRtl ? globalStyles.writingRtl : globalStyles.writingLtr,
                   ]}
                 >

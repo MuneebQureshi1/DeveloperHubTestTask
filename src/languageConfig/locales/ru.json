@@ -1,5 +1,4 @@
 {
-  "Hello_World": "Привет, мир",
   "follow": "Подписаться",
   "following": "Вы подписаны",
   "battleLive": "Баттл в эфире",
@@ -7,5 +6,8 @@
   "applaud": "Аплодисменты, {{count}}",
   "language": "Язык",
   "settings": "Настройки",
-  "selectLanguage": "Выберите язык"
+  "selectLanguage": "Выберите язык",
+  "appearance": "Оформление",
+  "lightMode": "Светлая",
+  "darkMode": "Тёмная"
 }

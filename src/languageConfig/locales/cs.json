@@ -1,5 +1,4 @@
 {
-  "Hello_World": "Ahoj světe",
   "follow": "Sledovat",
   "following": "Sledujete",
   "battleLive": "Battle živě",
@@ -7,5 +6,8 @@
   "applaud": "Potlesk, {{count}}",
   "language": "Jazyk",
   "settings": "Nastavení",
-  "selectLanguage": "Vyberte jazyk"
+  "selectLanguage": "Vyberte jazyk",
+  "appearance": "Vzhled",
+  "lightMode": "Světlý",
+  "darkMode": "Tmavý"
 }

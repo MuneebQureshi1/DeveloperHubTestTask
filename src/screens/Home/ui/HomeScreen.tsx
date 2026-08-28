@@ -14,11 +14,12 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import PerformanceFeedItem from '../../../components/common/PerformanceFeedItem';
 import { MOCK_PERFORMANCES } from '../../../constants/constantsArray';
 import { ROUTES } from '../../../constants/routes';
-import { globalStyles } from '../../../globalStyles';
+import { useGlobalStyles } from '../../../globalStyles';
 import type { HomeScreenProps } from '../../../types/navigation';
 import type { Performance } from '../../../types/performance';
 import { useLanguageStore } from '../../../store/useLanguageStore';
-import { styles } from '../styles/HomeScreen.styles';
+import { useThemeStore } from '../../../store/useThemeStore';
+import { stylesByScheme } from '../styles/HomeScreen.styles';
 
 const VIEWABILITY_CONFIG = {
   itemVisiblePercentThreshold: 80,
@@ -31,6 +32,9 @@ function keyExtractor(item: Performance) {
 function HomeScreen({ navigation }: HomeScreenProps) {
   const { t } = useTranslation();
   const isRtl = useLanguageStore(state => state.isRtl);
+  const scheme = useThemeStore(state => state.scheme);
+  const globalStyles = useGlobalStyles();
+  const styles = stylesByScheme[scheme];
   const insets = useSafeAreaInsets();
   const { height: windowHeight } = useWindowDimensions();
   const [listHeight, setListHeight] = useState(windowHeight);

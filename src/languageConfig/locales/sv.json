@@ -1,5 +1,4 @@
 {
-  "Hello_World": "Hej världen",
   "follow": "Följ",
   "following": "Följer",
   "battleLive": "Battle live",
@@ -7,5 +6,8 @@
   "applaud": "Applåd, {{count}}",
   "language": "Språk",
   "settings": "Inställningar",
-  "selectLanguage": "Välj språk"
+  "selectLanguage": "Välj språk",
+  "appearance": "Utseende",
+  "lightMode": "Ljust",
+  "darkMode": "Mörkt"
 }

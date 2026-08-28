@@ -1,5 +1,4 @@
 {
-  "Hello_World": "Helló világ",
   "follow": "Követés",
   "following": "Követed",
   "battleLive": "Battle élőben",
@@ -7,5 +6,8 @@
   "applaud": "Taps, {{count}}",
   "language": "Nyelv",
   "settings": "Beállítások",
-  "selectLanguage": "Nyelv kiválasztása"
+  "selectLanguage": "Nyelv kiválasztása",
+  "appearance": "Megjelenés",
+  "lightMode": "Világos",
+  "darkMode": "Sötét"
 }

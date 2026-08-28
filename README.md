@@ -48,6 +48,8 @@ The app opens on the Stage Feed (Home) screen.
 
 **Language.** `i18next` + `react-i18next` load 25 locales from `src/languageConfig`. The device language is detected with `react-native-localize` (React Native CLI, not Expo). The chosen language is persisted in the OS keychain via `react-native-keychain` and applied from `useLanguageStore`. Layout uses `start`/`end` and Yoga `direction`, so English and other LTR languages stay left-to-right, while Arabic and Urdu flip to RTL immediately. Settings can be dismissed with a left-to-right back swipe (`slide_from_right`).
 
+**Theme.** Light and dark palettes live in `src/constants/theme.ts`. `useThemeStore` persists the choice in the keychain (defaulting to the system scheme on first launch) and restyles navigation, StatusBar, Settings, feed chrome, and overlays. Video overlay text stays high-contrast so captions remain readable on footage in both modes.
+
 **Animation.** Applause uses React Native `Animated` with the native driver (scale burst + spring). Rapid taps stop the in-flight animation and restart it; the count is not driven by animation state.
 
 **Media.** Each performance uses a remote MP4 via `react-native-video`, full-bleed with `resizeMode="cover"` and looping. Only the currently visible item plays (and unmutes); off-screen players stay paused so scrolling stays light. This is local autoplay, not a live streaming pipeline.
