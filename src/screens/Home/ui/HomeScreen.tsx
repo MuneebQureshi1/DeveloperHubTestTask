@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import PerformanceFeedItem from '../../../components/common/PerformanceFeedItem';
 import { MOCK_PERFORMANCES } from '../../../constants/constantsArray';
-import { CurrentTimeProvider } from '../../../hooks/useCurrentTime';
 import type { HomeScreenProps } from '../../../types/navigation';
 import type { Performance } from '../../../types/performance';
 import { styles } from '../styles/HomeScreen.styles';
@@ -99,31 +98,29 @@ function HomeScreen(_props: HomeScreenProps) {
   );
 
   return (
-    <CurrentTimeProvider>
-      <View style={styles.root} onLayout={onListLayout}>
-        <FlatList
-          data={MOCK_PERFORMANCES}
-          renderItem={renderItem}
-          keyExtractor={keyExtractor}
-          extraData={{ activePerformanceId, applauseById, followedById }}
-          onViewableItemsChanged={onViewableItemsChanged}
-          viewabilityConfig={VIEWABILITY_CONFIG}
-          pagingEnabled={Platform.OS === 'ios'}
-          decelerationRate="fast"
-          snapToInterval={Platform.OS === 'android' ? listHeight : undefined}
-          snapToAlignment="start"
-          disableIntervalMomentum={Platform.OS === 'android'}
-          showsVerticalScrollIndicator={false}
-          overScrollMode="never"
-          getItemLayout={getItemLayout}
-          initialNumToRender={1}
-          maxToRenderPerBatch={2}
-          windowSize={3}
-          removeClippedSubviews={Platform.OS === 'android'}
-          bounces={false}
-        />
-      </View>
-    </CurrentTimeProvider>
+    <View style={styles.root} onLayout={onListLayout}>
+      <FlatList
+        data={MOCK_PERFORMANCES}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
+        extraData={{ activePerformanceId, applauseById, followedById }}
+        onViewableItemsChanged={onViewableItemsChanged}
+        viewabilityConfig={VIEWABILITY_CONFIG}
+        pagingEnabled={Platform.OS === 'ios'}
+        decelerationRate="fast"
+        snapToInterval={Platform.OS === 'android' ? listHeight : undefined}
+        snapToAlignment="start"
+        disableIntervalMomentum={Platform.OS === 'android'}
+        showsVerticalScrollIndicator={false}
+        overScrollMode="never"
+        getItemLayout={getItemLayout}
+        initialNumToRender={1}
+        maxToRenderPerBatch={2}
+        windowSize={3}
+        removeClippedSubviews={Platform.OS === 'android'}
+        bounces={false}
+      />
+    </View>
   );
 }
 

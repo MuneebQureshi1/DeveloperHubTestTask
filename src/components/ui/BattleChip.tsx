@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { Text, View } from 'react-native';
-import { useCurrentTime } from '../../hooks/useCurrentTime';
+import { useCurrentTime } from '../../context/CurrentTimeContext';
 import { formatDuration, getBattleStatus } from '../../utils/formatters';
 import { globalStyles } from '../../globalStyles';
 import { styles } from './styles/BattleChip.styles';
