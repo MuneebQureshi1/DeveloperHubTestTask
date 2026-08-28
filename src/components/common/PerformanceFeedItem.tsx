@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useCallback, useRef, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import Video from 'react-native-video';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -6,6 +6,7 @@ import { colors } from '../../constants/theme';
 import type { Performance } from '../../types/performance';
 import ApplaudButton from '../ui/ApplaudButton';
 import BattleChip from '../ui/BattleChip';
+import ClapBurst, { type ClapOrigin } from '../ui/ClapBurst';
 
 interface PerformanceFeedItemProps {
   item: Performance;
@@ -27,6 +28,18 @@ function PerformanceFeedItem({
   onApplaud,
 }: PerformanceFeedItemProps) {
   const insets = useSafeAreaInsets();
+  const burstIdRef = useRef(0);
+  const [bursts, setBursts] = useState<Array<ClapOrigin & { id: number }>>([]);
+
+  const onBurst = useCallback((origin: ClapOrigin) => {
+    const id = burstIdRef.current;
+    burstIdRef.current += 1;
+    setBursts(current => [...current, { id, ...origin }]);
+  }, []);
+
+  const onBurstComplete = useCallback((id: number) => {
+    setBursts(current => current.filter(burst => burst.id !== id));
+  }, []);
 
   return (
     <View style={[styles.root, { height }]}>
@@ -94,9 +107,20 @@ function PerformanceFeedItem({
             <ApplaudButton
               count={applauseCount}
               onPress={() => onApplaud(item.id)}
+              onBurst={onBurst}
             />
           </View>
         </View>
+      </View>
+
+      <View style={styles.burstLayer} pointerEvents="none">
+        {bursts.map(burst => (
+          <ClapBurst
+            key={burst.id}
+            origin={burst}
+            onComplete={() => onBurstComplete(burst.id)}
+          />
+        ))}
       </View>
     </View>
   );
@@ -128,6 +152,9 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFill,
     justifyContent: 'flex-end',
     paddingHorizontal: 20,
+  },
+  burstLayer: {
+    ...StyleSheet.absoluteFill,
   },
   bottomBlock: {
     width: '100%',
