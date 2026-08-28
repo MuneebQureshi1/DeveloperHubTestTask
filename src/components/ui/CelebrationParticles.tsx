@@ -13,14 +13,6 @@ import type { ThemeColors } from '../../constants/theme';
 import { celebrationParticlesStyles as styles } from './styles/CelebrationParticles.styles';
 
 const CONFETTI_COUNT = 36;
-const CONFETTI_COLORS = [
-  '#D4A94A',
-  '#F0D78C',
-  '#E8C56A',
-  '#FFFFFF',
-  '#C9A227',
-  '#F5E6B8',
-] as const;
 
 interface ConfettiConfig {
   id: number;
@@ -41,7 +33,9 @@ interface CelebrationParticlesProps {
   burstToken: number;
 }
 
-function createConfettiConfigs(gold: string): ConfettiConfig[] {
+function createConfettiConfigs(
+  palette: ThemeColors['confetti'],
+): ConfettiConfig[] {
   return Array.from({ length: CONFETTI_COUNT }, (_, index) => {
     const column = index % 9;
     const lane = (column - 4) * 34;
@@ -58,7 +52,7 @@ function createConfettiConfigs(gold: string): ConfettiConfig[] {
       width: 5 + (index % 4),
       height: 9 + (index % 5) * 2,
       spin: outward * (220 + index * 17),
-      color: index % 5 === 0 ? gold : CONFETTI_COLORS[index % CONFETTI_COLORS.length],
+      color: palette[index % palette.length],
     };
   });
 }
@@ -150,8 +144,8 @@ function ConfettiPiece({ config, burstToken }: ConfettiPieceProps) {
 
 function CelebrationParticles({ colors, burstToken }: CelebrationParticlesProps) {
   const configs = useMemo(
-    () => createConfettiConfigs(colors.gold),
-    [colors.gold],
+    () => createConfettiConfigs(colors.confetti),
+    [colors.confetti],
   );
 
   return (

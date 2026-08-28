@@ -22,7 +22,7 @@ function createStyles(colors: ThemeColors) {
     row: {
       alignItems: 'center',
       backgroundColor: colors.surface,
-      borderColor: 'transparent',
+      borderColor: colors.transparent,
       borderRadius: Utility.SP_12,
       borderWidth: Utility.SP_1,
       flexDirection: 'row',

@@ -1,9 +1,5 @@
 import { StyleSheet } from 'react-native';
-import {
-  colorsByScheme,
-  type AppColorScheme,
-  type ThemeColors,
-} from '../../../constants/theme';
+import { colorsByScheme, type ThemeColors } from '../../../constants/theme';
 import { fontScale } from '../../../utils/responsiveness/responsive';
 import {
   Utility,
@@ -11,9 +7,7 @@ import {
 } from '../../../utils/responsiveness/utility';
 import { CEREMONY_CARD_WIDTH } from '../../../components/ui/styles/CreatorCard.styles';
 
-function createStyles(colors: ThemeColors, scheme: AppColorScheme) {
-  const isDark = scheme === 'dark';
-
+function createStyles(colors: ThemeColors) {
   return StyleSheet.create({
     screen: {
       backgroundColor: colors.background,
@@ -39,7 +33,7 @@ function createStyles(colors: ThemeColors, scheme: AppColorScheme) {
     },
     replayButton: {
       backgroundColor: colors.chipBackground,
-      borderColor: isDark ? 'rgba(255, 255, 255, 0.3)' : 'rgba(26, 20, 8, 0.18)',
+      borderColor: colors.borderStrong,
       borderRadius: 999,
       borderWidth: Utility.SP_1,
       paddingHorizontal: Utility_Horizontal.SP_14,
@@ -55,9 +49,7 @@ function createStyles(colors: ThemeColors, scheme: AppColorScheme) {
     languageButton: {
       alignSelf: 'flex-end',
       backgroundColor: colors.chipBackground,
-      borderColor: isDark
-        ? 'rgba(255, 255, 255, 0.28)'
-        : 'rgba(26, 20, 8, 0.18)',
+      borderColor: colors.borderStrong,
       borderRadius: 999,
       borderWidth: Utility.SP_1,
       paddingHorizontal: Utility_Horizontal.SP_12,
@@ -96,7 +88,7 @@ function createStyles(colors: ThemeColors, scheme: AppColorScheme) {
     },
     vsBadge: {
       alignItems: 'center',
-      backgroundColor: isDark ? '#FFFFFF' : colors.gold,
+      backgroundColor: colors.vsBackground,
       borderRadius: 999,
       elevation: 10,
       height: Utility.SP_48,
@@ -105,16 +97,16 @@ function createStyles(colors: ThemeColors, scheme: AppColorScheme) {
       marginLeft: -Utility.SP_24,
       marginTop: -Utility.SP_24,
       position: 'absolute',
-      shadowColor: '#000',
+      shadowColor: colors.shadow,
       shadowOffset: { width: 0, height: 4 },
-      shadowOpacity: isDark ? 0.45 : 0.2,
+      shadowOpacity: 0.3,
       shadowRadius: 8,
       top: '50%',
       width: Utility.SP_48,
       zIndex: 8,
     },
     vsText: {
-      color: isDark ? '#000000' : '#FFFFFF',
+      color: colors.vsText,
       fontSize: fontScale(13),
       fontWeight: '900',
       letterSpacing: 1,
@@ -140,10 +132,8 @@ function createStyles(colors: ThemeColors, scheme: AppColorScheme) {
       zIndex: 11,
     },
     resolutionWrap: {
-      backgroundColor: isDark ? 'rgba(10, 10, 10, 0.96)' : colors.surface,
-      borderTopColor: isDark
-        ? 'rgba(255, 255, 255, 0.12)'
-        : 'rgba(26, 20, 8, 0.1)',
+      backgroundColor: colors.sheetBackground,
+      borderTopColor: colors.border,
       borderTopLeftRadius: Utility.SP_20,
       borderTopRightRadius: Utility.SP_20,
       borderTopWidth: StyleSheet.hairlineWidth,
@@ -153,9 +143,9 @@ function createStyles(colors: ThemeColors, scheme: AppColorScheme) {
       paddingTop: Utility.SP_18,
       position: 'absolute',
       right: 0,
-      shadowColor: '#000',
+      shadowColor: colors.shadow,
       shadowOffset: { width: 0, height: -4 },
-      shadowOpacity: isDark ? 0.35 : 0.12,
+      shadowOpacity: 0.2,
       shadowRadius: 12,
       zIndex: 25,
     },
@@ -163,6 +153,6 @@ function createStyles(colors: ThemeColors, scheme: AppColorScheme) {
 }
 
 export const stylesByScheme = {
-  light: createStyles(colorsByScheme.light, 'light'),
-  dark: createStyles(colorsByScheme.dark, 'dark'),
+  light: createStyles(colorsByScheme.light),
+  dark: createStyles(colorsByScheme.dark),
 } as const;

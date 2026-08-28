@@ -1,7 +1,6 @@
 import { StyleSheet } from 'react-native';
 import {
   colorsByScheme,
-  type AppColorScheme,
   type ThemeColors,
 } from '../../../constants/theme';
 import { fontScale } from '../../../utils/responsiveness/responsive';
@@ -12,16 +11,12 @@ export const CEREMONY_CARD_GAP = Utility_Horizontal.SP_28;
 export const WINNER_CENTER_OFFSET =
   (CEREMONY_CARD_WIDTH + CEREMONY_CARD_GAP) / 2;
 
-function createStyles(colors: ThemeColors, scheme: AppColorScheme) {
-  const isDark = scheme === 'dark';
-
+function createStyles(colors: ThemeColors) {
   return StyleSheet.create({
     panel: {
       alignItems: 'center',
-      backgroundColor: isDark ? '#141414' : '#EFE6D6',
-      borderColor: isDark
-        ? 'rgba(255, 255, 255, 0.12)'
-        : 'rgba(26, 20, 8, 0.12)',
+      backgroundColor: colors.card,
+      borderColor: colors.border,
       borderRadius: Utility.SP_22,
       borderWidth: Utility.SP_2,
       height: Utility.SP_300,
@@ -33,10 +28,8 @@ function createStyles(colors: ThemeColors, scheme: AppColorScheme) {
       width: CEREMONY_CARD_WIDTH,
     },
     avatar: {
-      backgroundColor: isDark ? '#1C1C1C' : '#DDD4C4',
-      borderColor: isDark
-        ? 'rgba(255, 255, 255, 0.18)'
-        : 'rgba(26, 20, 8, 0.12)',
+      backgroundColor: colors.avatarFill,
+      borderColor: colors.borderStrong,
       borderRadius: Utility.SP_48,
       borderWidth: Utility.SP_2,
       height: Utility.SP_96,
@@ -84,6 +77,6 @@ function createStyles(colors: ThemeColors, scheme: AppColorScheme) {
 }
 
 export const creatorCardStylesByScheme = {
-  light: createStyles(colorsByScheme.light, 'light'),
-  dark: createStyles(colorsByScheme.dark, 'dark'),
+  light: createStyles(colorsByScheme.light),
+  dark: createStyles(colorsByScheme.dark),
 } as const;

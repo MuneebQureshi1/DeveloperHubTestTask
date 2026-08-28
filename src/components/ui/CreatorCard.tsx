@@ -33,7 +33,7 @@ function CreatorCard({
   const glowStyle = useAnimatedStyle(() => {
     const active = goldGlow.value;
     return {
-      borderColor: active > 0.05 ? colors.gold : 'rgba(255, 255, 255, 0.12)',
+      borderColor: active > 0.05 ? colors.gold : colors.border,
       shadowOpacity: 0.6 * active,
       elevation: 4 + active * 14,
     };

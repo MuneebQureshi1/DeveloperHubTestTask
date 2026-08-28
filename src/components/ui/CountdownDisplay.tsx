@@ -32,10 +32,7 @@ function CountdownDisplay({
         styles.wrap,
         {
           backgroundColor: colors.chipBackground,
-          borderColor:
-            colors.statusBar === 'light-content'
-              ? 'rgba(255, 255, 255, 0.16)'
-              : 'rgba(26, 20, 8, 0.12)',
+          borderColor: colors.border,
         },
         animatedStyle,
       ]}

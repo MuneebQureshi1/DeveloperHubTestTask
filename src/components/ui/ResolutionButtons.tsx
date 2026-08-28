@@ -30,7 +30,6 @@ function ResolutionButton({
   }));
 
   const isPrimary = variant === 'primary';
-  const isDark = colors.statusBar === 'light-content';
 
   return (
     <Animated.View style={animatedStyle}>
@@ -42,10 +41,8 @@ function ResolutionButton({
             : [
                 styles.buttonBase,
                 {
-                  backgroundColor: 'transparent',
-                  borderColor: isDark
-                    ? 'rgba(255, 255, 255, 0.28)'
-                    : 'rgba(26, 20, 8, 0.22)',
+                  backgroundColor: colors.transparent,
+                  borderColor: colors.borderStrong,
                   borderWidth: Utility.SP_1,
                 },
               ]
