@@ -9,5 +9,6 @@
   "selectLanguage": "Выберите язык",
   "appearance": "Оформление",
   "lightMode": "Светлая",
-  "darkMode": "Тёмная"
+  "darkMode": "Тёмная",
+  "buffering": "Буферизация"
 }

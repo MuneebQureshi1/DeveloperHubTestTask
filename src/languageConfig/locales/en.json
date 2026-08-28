@@ -9,5 +9,6 @@
   "selectLanguage": "Select language",
   "appearance": "Appearance",
   "lightMode": "Light",
-  "darkMode": "Dark"
+  "darkMode": "Dark",
+  "buffering": "Buffering"
 }

@@ -9,5 +9,6 @@
   "selectLanguage": "Sprache wählen",
   "appearance": "Erscheinungsbild",
   "lightMode": "Hell",
-  "darkMode": "Dunkel"
+  "darkMode": "Dunkel",
+  "buffering": "Puffern"
 }

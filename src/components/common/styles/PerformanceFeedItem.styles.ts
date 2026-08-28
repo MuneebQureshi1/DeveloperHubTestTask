@@ -1,5 +1,10 @@
 import { StyleSheet } from 'react-native';
 import { colorsByScheme, type ThemeColors } from '../../../constants/theme';
+import { fontScale } from '../../../utils/responsiveness/responsive';
+import {
+  Utility,
+  Utility_Horizontal,
+} from '../../../utils/responsiveness/utility';
 
 function createStyles(colors: ThemeColors) {
   return StyleSheet.create({
@@ -18,7 +23,11 @@ function createStyles(colors: ThemeColors) {
     },
     overlay: {
       justifyContent: 'flex-end',
-      paddingHorizontal: 20,
+      paddingHorizontal: Utility_Horizontal.SP_20,
+    },
+    pendingFrame: {
+      ...StyleSheet.absoluteFill,
+      backgroundColor: colors.shimmerBase,
     },
     metaRow: {
       alignItems: 'flex-end',
@@ -27,28 +36,28 @@ function createStyles(colors: ThemeColors) {
     },
     meta: {
       flex: 1,
-      marginEnd: 16,
+      marginEnd: Utility_Horizontal.SP_16,
     },
     creatorLine: {
-      fontSize: 16,
+      fontSize: fontScale(16),
       fontWeight: '700',
-      marginBottom: 12,
+      marginBottom: Utility.SP_12,
     },
     followButton: {
       alignSelf: 'flex-start',
       backgroundColor: colors.gold,
-      borderRadius: 8,
-      paddingHorizontal: 18,
-      paddingVertical: 8,
+      borderRadius: Utility.SP_8,
+      paddingHorizontal: Utility_Horizontal.SP_18,
+      paddingVertical: Utility.SP_8,
     },
     followButtonActive: {
       backgroundColor: 'transparent',
       borderColor: colors.followOutline,
-      borderWidth: 1,
+      borderWidth: Utility.SP_1,
     },
     followLabel: {
       color: colors.onGold,
-      fontSize: 14,
+      fontSize: fontScale(14),
       fontWeight: '700',
     },
     followLabelActive: {

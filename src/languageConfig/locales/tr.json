@@ -9,5 +9,6 @@
   "selectLanguage": "Dil seç",
   "appearance": "Görünüm",
   "lightMode": "Açık",
-  "darkMode": "Koyu"
+  "darkMode": "Koyu",
+  "buffering": "Yükleniyor"
 }

@@ -9,5 +9,6 @@
   "selectLanguage": "Επιλογή γλώσσας",
   "appearance": "Εμφάνιση",
   "lightMode": "Φωτεινό",
-  "darkMode": "Σκοτεινό"
+  "darkMode": "Σκοτεινό",
+  "buffering": "Φόρτωση"
 }

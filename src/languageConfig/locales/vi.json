@@ -9,5 +9,6 @@
   "selectLanguage": "Chọn ngôn ngữ",
   "appearance": "Giao diện",
   "lightMode": "Sáng",
-  "darkMode": "Tối"
+  "darkMode": "Tối",
+  "buffering": "Đang tải"
 }

@@ -9,5 +9,6 @@
   "selectLanguage": "Pilih bahasa",
   "appearance": "Tampilan",
   "lightMode": "Terang",
-  "darkMode": "Gelap"
+  "darkMode": "Gelap",
+  "buffering": "Memuat"
 }

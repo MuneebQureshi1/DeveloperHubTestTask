@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
+import { Utility } from '../../../utils/responsiveness/utility';
 
-export const EMOJI_SIZE = 64;
+export const EMOJI_SIZE = Utility.SP_64;
 
 export const styles = StyleSheet.create({
   emoji: {

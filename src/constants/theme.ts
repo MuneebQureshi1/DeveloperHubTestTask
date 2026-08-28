@@ -16,6 +16,9 @@ export interface ThemeColors {
   onGold: string;
   overlayText: string;
   overlayTextSecondary: string;
+  shimmerBase: string;
+  shimmerHighlight: string;
+  shimmerBone: string;
   statusBar: Extract<StatusBarStyle, 'light-content' | 'dark-content'>;
 }
 
@@ -33,6 +36,9 @@ export const darkColors: ThemeColors = {
   onGold: '#1A1408',
   overlayText: '#FFFFFF',
   overlayTextSecondary: 'rgba(255, 255, 255, 0.78)',
+  shimmerBase: '#111111',
+  shimmerHighlight: '#FFFFFF',
+  shimmerBone: 'rgba(255, 255, 255, 0.12)',
   statusBar: 'light-content',
 };
 
@@ -50,6 +56,9 @@ export const lightColors: ThemeColors = {
   onGold: '#1A1408',
   overlayText: '#FFFFFF',
   overlayTextSecondary: 'rgba(255, 255, 255, 0.82)',
+  shimmerBase: '#E8E0D4',
+  shimmerHighlight: '#FFFFFF',
+  shimmerBone: 'rgba(26, 20, 8, 0.1)',
   statusBar: 'dark-content',
 };
 

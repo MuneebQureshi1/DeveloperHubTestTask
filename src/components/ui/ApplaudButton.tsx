@@ -9,6 +9,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { formatCount } from '../../utils/formatters';
 import { useGlobalStyles } from '../../globalStyles';
+import { Utility } from '../../utils/responsiveness/utility';
 import type { ClapOrigin } from './ClapBurst';
 import { styles } from './styles/ApplaudButton.styles';
 
@@ -59,7 +60,7 @@ function ApplaudButton({ count, onPress, onBurst }: ApplaudButtonProps) {
   return (
     <Pressable
       onPress={handlePress}
-      hitSlop={8}
+      hitSlop={Utility.SP_8}
       accessibilityRole="button"
       accessibilityLabel={t('applaud', { count: formatCount(displayCount) })}
     >

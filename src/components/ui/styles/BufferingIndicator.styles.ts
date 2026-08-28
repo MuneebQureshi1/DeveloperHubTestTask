@@ -8,22 +8,33 @@ import {
 
 function createStyles(colors: ThemeColors) {
   return StyleSheet.create({
-    chip: {
-      alignSelf: 'flex-start',
+    root: {
+      ...StyleSheet.absoluteFill,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    badge: {
+      alignItems: 'center',
       backgroundColor: colors.chipBackground,
       borderColor: colors.gold,
-      borderRadius: 999,
+      borderRadius: Utility.SP_20,
       borderWidth: Utility.SP_1,
-      marginBottom: Utility.SP_12,
-      paddingHorizontal: Utility_Horizontal.SP_12,
-      paddingVertical: Utility.SP_6,
+      paddingHorizontal: Utility_Horizontal.SP_24,
+      paddingVertical: Utility.SP_16,
     },
-    chipLive: {
-      borderColor: colors.battleLive,
+    spinner: {
+      borderColor: 'rgba(212, 169, 74, 0.22)',
+      borderRadius: 999,
+      borderTopColor: colors.gold,
+      borderWidth: Utility.SP_3,
+      height: Utility.SP_36,
+      marginBottom: Utility.SP_10,
+      width: Utility.SP_36,
     },
     label: {
+      color: colors.gold,
       fontSize: fontScale(13),
-      letterSpacing: Utility.SP_0_5,
+      fontWeight: '700',
     },
   });
 }

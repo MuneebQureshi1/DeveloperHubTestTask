@@ -1,15 +1,20 @@
 import { StyleSheet } from 'react-native';
+import { fontScale } from '../../../utils/responsiveness/responsive';
+import {
+  Utility,
+  Utility_Horizontal,
+} from '../../../utils/responsiveness/utility';
 
 export const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    minWidth: 56,
+    minWidth: Utility_Horizontal.SP_56,
   },
   emoji: {
-    fontSize: 28,
-    marginBottom: 4,
+    fontSize: fontScale(28),
+    marginBottom: Utility.SP_4,
   },
   count: {
-    fontSize: 13,
+    fontSize: fontScale(13),
   },
 });

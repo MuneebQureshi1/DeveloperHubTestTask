@@ -9,5 +9,6 @@
   "selectLanguage": "เลือกภาษา",
   "appearance": "ลักษณะ",
   "lightMode": "สว่าง",
-  "darkMode": "มืด"
+  "darkMode": "มืด",
+  "buffering": "กำลังโหลด"
 }

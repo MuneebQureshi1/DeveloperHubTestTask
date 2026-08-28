@@ -6,6 +6,7 @@ import {
   type ThemeColors,
 } from '../constants/theme';
 import { useThemeStore } from '../store/useThemeStore';
+import { Utility } from '../utils/responsiveness/utility';
 
 function createGlobalStyles(colors: ThemeColors) {
   return StyleSheet.create({
@@ -33,15 +34,15 @@ function createGlobalStyles(colors: ThemeColors) {
     overlayText: {
       color: colors.overlayText,
       textShadowColor: 'rgba(0, 0, 0, 0.75)',
-      textShadowOffset: { width: 0, height: 1 },
-      textShadowRadius: 4,
+      textShadowOffset: { width: 0, height: Utility.SP_1 },
+      textShadowRadius: Utility.SP_4,
     },
     overlayTextSmall: {
       color: colors.overlayText,
       fontWeight: '600',
       textShadowColor: 'rgba(0, 0, 0, 0.7)',
-      textShadowOffset: { width: 0, height: 1 },
-      textShadowRadius: 3,
+      textShadowOffset: { width: 0, height: Utility.SP_1 },
+      textShadowRadius: Utility.SP_3,
     },
     overlayTextSecondary: {
       color: colors.overlayTextSecondary,

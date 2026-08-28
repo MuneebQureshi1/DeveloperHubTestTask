@@ -9,5 +9,6 @@
   "selectLanguage": "Vyberte jazyk",
   "appearance": "Vzhled",
   "lightMode": "Světlý",
-  "darkMode": "Tmavý"
+  "darkMode": "Tmavý",
+  "buffering": "Načítání"
 }

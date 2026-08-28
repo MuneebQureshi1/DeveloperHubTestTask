@@ -1,53 +1,58 @@
 import { StyleSheet } from 'react-native';
 import { colorsByScheme, type ThemeColors } from '../../../constants/theme';
+import { fontScale } from '../../../utils/responsiveness/responsive';
+import {
+  Utility,
+  Utility_Horizontal,
+} from '../../../utils/responsiveness/utility';
 
 function createStyles(colors: ThemeColors) {
   return StyleSheet.create({
     heading: {
       color: colors.textPrimary,
-      fontSize: 20,
+      fontSize: fontScale(20),
       fontWeight: '700',
-      paddingTop: 16,
-      paddingBottom: 8,
+      paddingTop: Utility.SP_16,
+      paddingBottom: Utility.SP_8,
     },
     list: {
-      paddingBottom: 32,
-      paddingHorizontal: 16,
+      paddingBottom: Utility.SP_32,
+      paddingHorizontal: Utility_Horizontal.SP_16,
     },
     row: {
       alignItems: 'center',
       backgroundColor: colors.surface,
       borderColor: 'transparent',
-      borderRadius: 12,
-      borderWidth: 1,
+      borderRadius: Utility.SP_12,
+      borderWidth: Utility.SP_1,
       flexDirection: 'row',
-      marginTop: 10,
-      paddingHorizontal: 14,
-      paddingVertical: 12,
+      marginTop: Utility.SP_10,
+      paddingHorizontal: Utility_Horizontal.SP_14,
+      paddingVertical: Utility.SP_12,
     },
     rowSelected: {
       borderColor: colors.gold,
     },
     flag: {
-      fontSize: 22,
-      marginEnd: 12,
+      fontSize: fontScale(22),
+      marginEnd: Utility_Horizontal.SP_12,
     },
     labels: {
       flex: 1,
     },
     endonym: {
       color: colors.textPrimary,
-      fontSize: 16,
+      fontSize: fontScale(16),
       fontWeight: '600',
     },
     english: {
       color: colors.textSecondary,
-      fontSize: 13,
-      marginTop: 2,
+      fontSize: fontScale(13),
+      marginTop: Utility.SP_2,
     },
     check: {
       color: colors.gold,
-      fontSize: 18,
+      fontSize: fontScale(18),
       fontWeight: '700',
     },
   });
