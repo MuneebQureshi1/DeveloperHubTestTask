@@ -9,7 +9,10 @@ import {
   Utility,
   Utility_Horizontal,
 } from '../../../utils/responsiveness/utility';
-import { createCreatorCardStyles } from '../components/CreatorCard';
+import {
+  CEREMONY_CARD_WIDTH,
+  createCreatorCardStyles,
+} from '../components/CreatorCard';
 
 function createStyles(colors: ThemeColors, scheme: AppColorScheme) {
   const isDark = scheme === 'dark';
@@ -19,6 +22,7 @@ function createStyles(colors: ThemeColors, scheme: AppColorScheme) {
     screen: {
       backgroundColor: colors.background,
       flex: 1,
+      overflow: 'visible',
     },
     topBar: {
       alignItems: 'center',
@@ -55,57 +59,67 @@ function createStyles(colors: ThemeColors, scheme: AppColorScheme) {
     languageButton: {
       alignSelf: 'flex-end',
       backgroundColor: colors.chipBackground,
-      borderColor: colors.gold,
+      borderColor: isDark
+        ? 'rgba(255, 255, 255, 0.28)'
+        : 'rgba(26, 20, 8, 0.18)',
       borderRadius: 999,
       borderWidth: Utility.SP_1,
       paddingHorizontal: Utility_Horizontal.SP_12,
       paddingVertical: Utility.SP_6,
     },
     languageLabel: {
-      color: colors.gold,
+      color: colors.textPrimary,
       fontSize: fontScale(13),
       fontWeight: '700',
     },
     liveStage: {
       flex: 1,
-      overflow: 'hidden',
+      overflow: 'visible',
     },
-    splitRow: {
-      flex: 1,
-      flexDirection: 'row',
+    championSlot: {
+      alignItems: 'center',
+      left: 0,
+      position: 'absolute',
+      right: 0,
+      zIndex: 12,
     },
-    panelSlot: {
-      flex: 1,
-      overflow: 'hidden',
+    cardsArena: {
+      ...StyleSheet.absoluteFill,
+      overflow: 'visible',
+      zIndex: 6,
     },
-    centerDivider: {
-      backgroundColor: isDark
-        ? 'rgba(255, 255, 255, 0.22)'
-        : 'rgba(26, 20, 8, 0.16)',
-      width: 2,
-      zIndex: 4,
+    cardAnchor: {
+      height: Utility.SP_300,
+      left: '50%',
+      marginLeft: -CEREMONY_CARD_WIDTH / 2,
+      marginTop: -Utility.SP_150,
+      overflow: 'visible',
+      position: 'absolute',
+      top: '50%',
+      width: CEREMONY_CARD_WIDTH,
     },
     vsBadge: {
       alignItems: 'center',
       backgroundColor: isDark ? '#FFFFFF' : colors.gold,
       borderRadius: 999,
-      elevation: 8,
-      height: Utility.SP_52,
+      elevation: 10,
+      height: Utility.SP_48,
       justifyContent: 'center',
       left: '50%',
-      marginLeft: -Utility.SP_26,
+      marginLeft: -Utility.SP_24,
+      marginTop: -Utility.SP_24,
       position: 'absolute',
       shadowColor: '#000',
       shadowOffset: { width: 0, height: 4 },
       shadowOpacity: isDark ? 0.45 : 0.2,
       shadowRadius: 8,
-      top: '42%',
-      width: Utility.SP_52,
+      top: '50%',
+      width: Utility.SP_48,
       zIndex: 8,
     },
     vsText: {
       color: isDark ? '#000000' : '#FFFFFF',
-      fontSize: fontScale(14),
+      fontSize: fontScale(13),
       fontWeight: '900',
       letterSpacing: 1,
     },
@@ -114,43 +128,20 @@ function createStyles(colors: ThemeColors, scheme: AppColorScheme) {
       left: 0,
       position: 'absolute',
       right: 0,
-      top: '12%',
-      zIndex: 12,
-    },
-    focusLayer: {
-      alignItems: 'center',
-      justifyContent: 'center',
-      left: 0,
-      position: 'absolute',
-      right: 0,
-      top: '28%',
-      zIndex: 10,
-    },
-    championBanner: {
-      alignItems: 'center',
-      backgroundColor: isDark
-        ? 'rgba(0, 0, 0, 0.62)'
-        : 'rgba(255, 255, 255, 0.92)',
-      borderColor: isDark
-        ? 'rgba(212, 169, 74, 0.55)'
-        : 'rgba(184, 134, 47, 0.55)',
-      borderRadius: Utility.SP_18,
-      borderWidth: Utility.SP_1,
-      paddingHorizontal: Utility_Horizontal.SP_24,
-      paddingVertical: Utility.SP_14,
+      top: '11%',
+      zIndex: 14,
     },
     trophy: {
-      fontSize: fontScale(34),
-      marginBottom: Utility.SP_4,
+      fontSize: fontScale(28),
+      marginBottom: Utility.SP_2,
       textAlign: 'center',
     },
     championWrap: {
-      marginTop: Utility.SP_2,
+      alignItems: 'center',
     },
     particleWrap: {
-      height: Utility.SP_140,
-      marginTop: Utility.SP_4,
-      width: '100%',
+      ...StyleSheet.absoluteFill,
+      zIndex: 11,
     },
     resolutionWrap: {
       backgroundColor: isDark ? 'rgba(10, 10, 10, 0.96)' : colors.surface,
@@ -173,21 +164,11 @@ function createStyles(colors: ThemeColors, scheme: AppColorScheme) {
       zIndex: 25,
     },
     panel: cardStyles.panel,
-    media: cardStyles.media,
-    liveBadge: cardStyles.liveBadge,
-    liveDot: cardStyles.liveDot,
-    liveText: cardStyles.liveText,
-    content: cardStyles.content,
-    avatarRing: cardStyles.avatarRing,
     avatar: cardStyles.avatar,
     name: cardStyles.name,
     category: cardStyles.category,
-    textShadow: cardStyles.textShadow,
-    scoreBlock: cardStyles.scoreBlock,
     scoreLabel: cardStyles.scoreLabel,
     score: cardStyles.score,
-    energyTrack: cardStyles.energyTrack,
-    energyFill: cardStyles.energyFill,
     flashOverlay: cardStyles.flashOverlay,
   });
 }

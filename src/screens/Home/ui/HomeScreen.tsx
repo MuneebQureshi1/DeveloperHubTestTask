@@ -1,5 +1,4 @@
-import { useMemo } from 'react';
-import { Pressable, Text, useWindowDimensions, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -13,7 +12,9 @@ import { Utility } from '../../../utils/responsiveness/utility';
 import CelebrationParticles from '../../WinnerCeremony/components/CelebrationParticles';
 import ChampionTitle from '../../WinnerCeremony/components/ChampionTitle';
 import CountdownDisplay from '../../WinnerCeremony/components/CountdownDisplay';
-import CreatorCard from '../../WinnerCeremony/components/CreatorCard';
+import CreatorCard, {
+  WINNER_CENTER_OFFSET,
+} from '../../WinnerCeremony/components/CreatorCard';
 import ResolutionButtons from '../../WinnerCeremony/components/ResolutionButtons';
 import { MOCK_CREATORS } from '../../WinnerCeremony/data/mockCreators';
 import { useCeremonySequence } from '../../WinnerCeremony/hooks/useCeremonySequence';
@@ -27,18 +28,9 @@ function HomeScreen({ navigation }: HomeScreenProps) {
   const globalStyles = useGlobalStyles();
   const ceremonyStyles = ceremonyStylesByScheme[scheme];
   const insets = useSafeAreaInsets();
-  const { width } = useWindowDimensions();
 
-  const { winnerSide } = useMemo(
-    () => resolveBattleOutcome(MOCK_CREATORS),
-    [],
-  );
-
+  const { winnerSide } = resolveBattleOutcome(MOCK_CREATORS);
   const [leftCreator, rightCreator] = MOCK_CREATORS;
-  const totalScore = leftCreator.score + rightCreator.score;
-  const leftEnergy = leftCreator.score / totalScore;
-  const rightEnergy = rightCreator.score / totalScore;
-  const centerOffset = useMemo(() => width * 0.25, [width]);
 
   const {
     countdownValue,
@@ -48,12 +40,15 @@ function HomeScreen({ navigation }: HomeScreenProps) {
     replayCeremony,
   } = useCeremonySequence({
     winnerSide,
-    centerOffset,
+    centerOffset: WINNER_CENTER_OFFSET,
   });
 
   const leftCardStyle = useAnimatedStyle(() => ({
     opacity: sharedValues.leftOpacity.value,
+    zIndex: 4 + (sharedValues.leftScale.value > 1.05 ? 16 : 0),
+    elevation: 4 + (sharedValues.leftScale.value > 1.05 ? 16 : 0),
     transform: [
+      { translateX: sharedValues.leftTranslateX.value },
       { translateY: sharedValues.leftTranslateY.value },
       { scale: sharedValues.leftScale.value },
     ],
@@ -61,7 +56,10 @@ function HomeScreen({ navigation }: HomeScreenProps) {
 
   const rightCardStyle = useAnimatedStyle(() => ({
     opacity: sharedValues.rightOpacity.value,
+    zIndex: 4 + (sharedValues.rightScale.value > 1.05 ? 16 : 0),
+    elevation: 4 + (sharedValues.rightScale.value > 1.05 ? 16 : 0),
     transform: [
+      { translateX: sharedValues.rightTranslateX.value },
       { translateY: sharedValues.rightTranslateY.value },
       { scale: sharedValues.rightScale.value },
     ],
@@ -91,21 +89,11 @@ function HomeScreen({ navigation }: HomeScreenProps) {
 
   const cardStyles = {
     panel: ceremonyStyles.panel,
-    media: ceremonyStyles.media,
-    liveBadge: ceremonyStyles.liveBadge,
-    liveDot: ceremonyStyles.liveDot,
-    liveText: ceremonyStyles.liveText,
-    content: ceremonyStyles.content,
-    avatarRing: ceremonyStyles.avatarRing,
     avatar: ceremonyStyles.avatar,
     name: ceremonyStyles.name,
     category: ceremonyStyles.category,
-    textShadow: ceremonyStyles.textShadow,
-    scoreBlock: ceremonyStyles.scoreBlock,
     scoreLabel: ceremonyStyles.scoreLabel,
     score: ceremonyStyles.score,
-    energyTrack: ceremonyStyles.energyTrack,
-    energyFill: ceremonyStyles.energyFill,
     flashOverlay: ceremonyStyles.flashOverlay,
   };
 
@@ -148,45 +136,60 @@ function HomeScreen({ navigation }: HomeScreenProps) {
       </View>
 
       <View style={ceremonyStyles.liveStage} pointerEvents="box-none">
-        <View style={ceremonyStyles.splitRow}>
-          <View style={ceremonyStyles.panelSlot}>
-            <CreatorCard
-              creator={leftCreator}
-              side="left"
-              energyRatio={leftEnergy}
-              cardStyle={leftCardStyle}
-              scoreFlash={sharedValues.leftScoreFlash}
-              goldGlow={sharedValues.leftGoldGlow}
-              contentLift={sharedValues.contentLift}
+        <View
+          style={[
+            ceremonyStyles.championSlot,
+            { top: insets.top + Utility.SP_52 },
+          ]}
+          pointerEvents="none"
+        >
+          <Animated.View style={[ceremonyStyles.championWrap, championBannerStyle]}>
+            <Animated.Text style={[ceremonyStyles.trophy, trophyStyle]}>
+              🏆
+            </Animated.Text>
+            <ChampionTitle
+              scale={sharedValues.championScale}
+              translateY={sharedValues.championTranslateY}
+              opacity={sharedValues.championOpacity}
+              rotate={sharedValues.championRotate}
               colors={colors}
-              styles={cardStyles}
-              liveLabel={t('live')}
-              scoreLabel={t('score')}
+              title={t('champion')}
             />
-          </View>
-
-          <View style={ceremonyStyles.centerDivider} />
-
-          <View style={ceremonyStyles.panelSlot}>
-            <CreatorCard
-              creator={rightCreator}
-              side="right"
-              energyRatio={rightEnergy}
-              cardStyle={rightCardStyle}
-              scoreFlash={sharedValues.rightScoreFlash}
-              goldGlow={sharedValues.rightGoldGlow}
-              contentLift={sharedValues.contentLift}
-              colors={colors}
-              styles={cardStyles}
-              liveLabel={t('live')}
-              scoreLabel={t('score')}
-            />
-          </View>
+          </Animated.View>
         </View>
 
-        <Animated.View style={[ceremonyStyles.vsBadge, vsStyle]}>
-          <Text style={ceremonyStyles.vsText}>{t('vs')}</Text>
-        </Animated.View>
+        <View
+          collapsable={false}
+          style={ceremonyStyles.cardsArena}
+          pointerEvents="box-none"
+        >
+          <Animated.View style={[ceremonyStyles.cardAnchor, leftCardStyle]}>
+            <CreatorCard
+              creator={leftCreator}
+              scoreFlash={sharedValues.leftScoreFlash}
+              goldGlow={sharedValues.leftGoldGlow}
+              colors={colors}
+              styles={cardStyles}
+              scoreLabel={t('score')}
+            />
+          </Animated.View>
+          <Animated.View style={[ceremonyStyles.cardAnchor, rightCardStyle]}>
+            <CreatorCard
+              creator={rightCreator}
+              scoreFlash={sharedValues.rightScoreFlash}
+              goldGlow={sharedValues.rightGoldGlow}
+              colors={colors}
+              styles={cardStyles}
+              scoreLabel={t('score')}
+            />
+          </Animated.View>
+          <Animated.View
+            pointerEvents="none"
+            style={[ceremonyStyles.vsBadge, vsStyle]}
+          >
+            <Text style={ceremonyStyles.vsText}>{t('vs')}</Text>
+          </Animated.View>
+        </View>
 
         <View pointerEvents="none" style={ceremonyStyles.countdownOverlay}>
           <CountdownDisplay
@@ -198,29 +201,12 @@ function HomeScreen({ navigation }: HomeScreenProps) {
           />
         </View>
 
-        <View pointerEvents="none" style={ceremonyStyles.focusLayer}>
-          <Animated.View style={[ceremonyStyles.championBanner, championBannerStyle]}>
-            <Animated.Text style={[ceremonyStyles.trophy, trophyStyle]}>
-              🏆
-            </Animated.Text>
-            <View style={ceremonyStyles.championWrap}>
-              <ChampionTitle
-                scale={sharedValues.championScale}
-                translateY={sharedValues.championTranslateY}
-                opacity={sharedValues.championOpacity}
-                rotate={sharedValues.championRotate}
-                colors={colors}
-                title={t('champion')}
-              />
-            </View>
-          </Animated.View>
-          <View style={ceremonyStyles.particleWrap}>
-            <CelebrationParticles
-              key={ceremonyKey}
-              colors={colors}
-              burstToken={particleBurstToken}
-            />
-          </View>
+        <View pointerEvents="none" style={ceremonyStyles.particleWrap}>
+          <CelebrationParticles
+            key={ceremonyKey}
+            colors={colors}
+            burstToken={particleBurstToken}
+          />
         </View>
 
         <Animated.View

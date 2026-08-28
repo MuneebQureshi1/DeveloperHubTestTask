@@ -15,7 +15,7 @@ const COUNTDOWN_INTERVAL_MS = 1000;
 
 const TIMING = {
   scoreLock: 400,
-  reveal: 800,
+  reveal: 920,
   championDelay: 200,
   particlesDelay: 200,
   button1Delay: 1300,
@@ -97,8 +97,8 @@ export function useCeremonySequence({
   const rightScale = useSharedValue(1);
   const leftOpacity = useSharedValue(1);
   const rightOpacity = useSharedValue(1);
-  const leftTranslateX = useSharedValue(0);
-  const rightTranslateX = useSharedValue(0);
+  const leftTranslateX = useSharedValue(-centerOffset);
+  const rightTranslateX = useSharedValue(centerOffset);
   const leftTranslateY = useSharedValue(0);
   const rightTranslateY = useSharedValue(0);
   const leftScoreFlash = useSharedValue(0);
@@ -178,14 +178,15 @@ export function useCeremonySequence({
 
   const resetSharedValues = () => {
     const sv = sharedValuesRef.current;
+    const offset = centerOffsetRef.current;
     sv.countdownScale.value = 1;
     sv.countdownOpacity.value = 1;
     sv.leftScale.value = 1;
     sv.rightScale.value = 1;
     sv.leftOpacity.value = 1;
     sv.rightOpacity.value = 1;
-    sv.leftTranslateX.value = 0;
-    sv.rightTranslateX.value = 0;
+    sv.leftTranslateX.value = -offset;
+    sv.rightTranslateX.value = offset;
     sv.leftTranslateY.value = 0;
     sv.rightTranslateY.value = 0;
     sv.leftScoreFlash.value = 0;
@@ -238,12 +239,46 @@ export function useCeremonySequence({
 
     const sv = sharedValuesRef.current;
     const sheetEasing = Easing.out(Easing.cubic);
+    const winnerIsLeft = winnerSideRef.current === 'left';
+    const heroSpring = { damping: 14, stiffness: 128, mass: 0.88 };
 
-    // Bottom-sheet style: smooth slide up from bottom, no spring bounce.
-    sv.contentLift.value = withTiming(200, {
+    const winnerTranslateX = winnerIsLeft
+      ? sv.leftTranslateX
+      : sv.rightTranslateX;
+    const winnerTranslateY = winnerIsLeft
+      ? sv.leftTranslateY
+      : sv.rightTranslateY;
+    const winnerScale = winnerIsLeft ? sv.leftScale : sv.rightScale;
+    const loserTranslateX = winnerIsLeft
+      ? sv.rightTranslateX
+      : sv.leftTranslateX;
+    const loserTranslateY = winnerIsLeft
+      ? sv.rightTranslateY
+      : sv.leftTranslateY;
+    const loserScale = winnerIsLeft ? sv.rightScale : sv.leftScale;
+    const loserOpacity = winnerIsLeft ? sv.rightOpacity : sv.leftOpacity;
+
+    winnerTranslateX.value = withSpring(0, heroSpring);
+    winnerTranslateY.value = withSpring(-36, heroSpring);
+    winnerScale.value = withSpring(1.22, heroSpring);
+
+    loserTranslateX.value = withTiming(
+      winnerIsLeft ? centerOffsetRef.current + 20 : -(centerOffsetRef.current + 20),
+      { duration: 420, easing: sheetEasing },
+    );
+    loserTranslateY.value = withTiming(12, {
       duration: 420,
       easing: sheetEasing,
     });
+    loserScale.value = withTiming(0.7, {
+      duration: 420,
+      easing: sheetEasing,
+    });
+    loserOpacity.value = withTiming(0.16, {
+      duration: 360,
+      easing: sheetEasing,
+    });
+
     sv.resolutionTranslateY.value = withTiming(0, {
       duration: 420,
       easing: sheetEasing,
@@ -253,7 +288,6 @@ export function useCeremonySequence({
       easing: Easing.out(Easing.quad),
     });
 
-    // Buttons fade in one by one after the sheet starts sliding up.
     schedule(
       generation,
       () => {
@@ -346,27 +380,57 @@ export function useCeremonySequence({
 
     const sv = sharedValuesRef.current;
     const winnerIsLeft = winnerSideRef.current === 'left';
+    const offset = centerOffsetRef.current;
+    const recede = Easing.out(Easing.cubic);
+    const winnerSpring = { damping: 15, stiffness: 112, mass: 0.9 };
 
-    // Keep TikTok-style split intact: dim loser in place, lift winner slightly.
-    sv.vsOpacity.value = withTiming(0, { duration: 280 });
-    sv.countdownOpacity.value = withTiming(0, { duration: 220 });
+    sv.vsOpacity.value = withTiming(0, { duration: 240 });
+    sv.countdownOpacity.value = withTiming(0, { duration: 180 });
 
     if (winnerIsLeft) {
-      sv.leftScale.value = withSpring(1.03, { damping: 14, stiffness: 180 });
+      sv.leftTranslateX.value = withSpring(0, winnerSpring);
+      sv.leftTranslateY.value = withSpring(-8, winnerSpring);
+      sv.leftScale.value = withSpring(1.08, winnerSpring);
       sv.leftOpacity.value = withTiming(1, { duration: TIMING.reveal });
-      sv.leftTranslateY.value = withTiming(-6, { duration: TIMING.reveal });
 
-      sv.rightScale.value = withTiming(0.94, { duration: TIMING.reveal });
-      sv.rightOpacity.value = withTiming(0.38, { duration: TIMING.reveal });
-      sv.rightTranslateY.value = withTiming(10, { duration: TIMING.reveal });
+      sv.rightTranslateX.value = withTiming(offset + 12, {
+        duration: TIMING.reveal,
+        easing: recede,
+      });
+      sv.rightTranslateY.value = withTiming(16, {
+        duration: TIMING.reveal,
+        easing: recede,
+      });
+      sv.rightScale.value = withTiming(0.72, {
+        duration: TIMING.reveal,
+        easing: recede,
+      });
+      sv.rightOpacity.value = withTiming(0.22, {
+        duration: TIMING.reveal,
+        easing: recede,
+      });
     } else {
-      sv.rightScale.value = withSpring(1.03, { damping: 14, stiffness: 180 });
+      sv.rightTranslateX.value = withSpring(0, winnerSpring);
+      sv.rightTranslateY.value = withSpring(-8, winnerSpring);
+      sv.rightScale.value = withSpring(1.08, winnerSpring);
       sv.rightOpacity.value = withTiming(1, { duration: TIMING.reveal });
-      sv.rightTranslateY.value = withTiming(-6, { duration: TIMING.reveal });
 
-      sv.leftScale.value = withTiming(0.94, { duration: TIMING.reveal });
-      sv.leftOpacity.value = withTiming(0.38, { duration: TIMING.reveal });
-      sv.leftTranslateY.value = withTiming(10, { duration: TIMING.reveal });
+      sv.leftTranslateX.value = withTiming(-(offset + 12), {
+        duration: TIMING.reveal,
+        easing: recede,
+      });
+      sv.leftTranslateY.value = withTiming(16, {
+        duration: TIMING.reveal,
+        easing: recede,
+      });
+      sv.leftScale.value = withTiming(0.72, {
+        duration: TIMING.reveal,
+        easing: recede,
+      });
+      sv.leftOpacity.value = withTiming(0.22, {
+        duration: TIMING.reveal,
+        easing: recede,
+      });
     }
 
     schedule(generation, () => runGoldTreatment(generation), TIMING.reveal);
