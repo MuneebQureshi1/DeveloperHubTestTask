@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     width: '100%',
   },
   scrim: {
-    backgroundColor: colors.scrim,
+    // backgroundColor: colors.scrim,
     bottom: 0,
     height: '42%',
     left: 0,
@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
   },
   meta: {
     flex: 1,
-    marginRight: 16,
+    marginEnd: 16,
   },
   creatorLine: {
     fontSize: 16,

@@ -1,0 +1,11 @@
+{
+  "Hello_World": "नमस्ते दुनिया",
+  "follow": "फॉलो",
+  "following": "फॉलो कर रहे हैं",
+  "battleLive": "बैटल लाइव",
+  "battleIn": "बैटल {{time}} में",
+  "applaud": "तालियाँ, {{count}}",
+  "language": "भाषा",
+  "settings": "सेटिंग्स",
+  "selectLanguage": "भाषा चुनें"
+}

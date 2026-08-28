@@ -15,7 +15,11 @@ jest.mock('react-native-video', () => {
 });
 
 test('renders correctly', async () => {
+  let tree: ReactTestRenderer.ReactTestRenderer | undefined;
   await ReactTestRenderer.act(() => {
-    ReactTestRenderer.create(<App />);
+    tree = ReactTestRenderer.create(<App />);
+  });
+  await ReactTestRenderer.act(() => {
+    tree?.unmount();
   });
 });

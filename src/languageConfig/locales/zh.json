@@ -1,0 +1,11 @@
+{
+  "Hello_World": "你好，世界",
+  "follow": "关注",
+  "following": "已关注",
+  "battleLive": "对战进行中",
+  "battleIn": "{{time}} 后开始对战",
+  "applaud": "鼓掌，{{count}}",
+  "language": "语言",
+  "settings": "设置",
+  "selectLanguage": "选择语言"
+}

@@ -1,0 +1,11 @@
+{
+  "Hello_World": "안녕하세요 세계",
+  "follow": "팔로우",
+  "following": "팔로잉",
+  "battleLive": "배틀 라이브",
+  "battleIn": "배틀까지 {{time}}",
+  "applaud": "박수, {{count}}",
+  "language": "언어",
+  "settings": "설정",
+  "selectLanguage": "언어 선택"
+}

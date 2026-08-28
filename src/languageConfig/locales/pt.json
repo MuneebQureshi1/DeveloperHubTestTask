@@ -1,0 +1,11 @@
+{
+  "Hello_World": "Olá mundo",
+  "follow": "Seguir",
+  "following": "Seguindo",
+  "battleLive": "Batalha ao vivo",
+  "battleIn": "Batalha em {{time}}",
+  "applaud": "Aplaudir, {{count}}",
+  "language": "Idioma",
+  "settings": "Configurações",
+  "selectLanguage": "Selecionar idioma"
+}

@@ -51,6 +51,18 @@ export const globalStyles = StyleSheet.create({
   textLive: {
     color: colors.battleLive,
   },
+  ltr: {
+    direction: 'ltr',
+  },
+  rtl: {
+    direction: 'rtl',
+  },
+  writingLtr: {
+    writingDirection: 'ltr',
+  },
+  writingRtl: {
+    writingDirection: 'rtl',
+  },
 });
 
 export const navigationTheme: Theme = {
@@ -66,7 +78,10 @@ export const navigationTheme: Theme = {
 };
 
 export const navigationScreenOptions = {
+  animation: 'slide_from_right',
   contentStyle: { backgroundColor: colors.background },
+  fullScreenGestureEnabled: true,
+  gestureEnabled: true,
   headerShadowVisible: false,
   headerShown: false,
   headerStyle: { backgroundColor: colors.background },

@@ -1,0 +1,11 @@
+{
+  "Hello_World": "สวัสดีชาวโลก",
+  "follow": "ติดตาม",
+  "following": "กำลังติดตาม",
+  "battleLive": "แบทเทิลสด",
+  "battleIn": "แบทเทิลใน {{time}}",
+  "applaud": "ปรบมือ {{count}}",
+  "language": "ภาษา",
+  "settings": "การตั้งค่า",
+  "selectLanguage": "เลือกภาษา"
+}

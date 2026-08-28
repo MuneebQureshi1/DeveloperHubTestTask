@@ -1,0 +1,11 @@
+{
+  "Hello_World": "Γεια σου κόσμε",
+  "follow": "Ακολουθήστε",
+  "following": "Ακολουθείτε",
+  "battleLive": "Μάχη ζωντανά",
+  "battleIn": "Μάχη σε {{time}}",
+  "applaud": "Χειροκρότημα, {{count}}",
+  "language": "Γλώσσα",
+  "settings": "Ρυθμίσεις",
+  "selectLanguage": "Επιλογή γλώσσας"
+}

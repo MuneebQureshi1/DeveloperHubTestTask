@@ -3,6 +3,7 @@ import { ROUTES } from '../constants/routes';
 
 export type RootStackParamList = {
   [ROUTES.HOME]: undefined;
+  [ROUTES.SETTINGS]: undefined;
 };
 
 export type HomeScreenProps = NativeStackScreenProps<
@@ -10,6 +11,10 @@ export type HomeScreenProps = NativeStackScreenProps<
   typeof ROUTES.HOME
 >;
 
+export type SettingsScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  typeof ROUTES.SETTINGS
+>;
 
 declare global {
   namespace ReactNavigation {

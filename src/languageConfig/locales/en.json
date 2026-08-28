@@ -1,0 +1,11 @@
+{
+  "Hello_World": "Hello World",
+  "follow": "Follow",
+  "following": "Following",
+  "battleLive": "Battle Live",
+  "battleIn": "Battle in {{time}}",
+  "applaud": "Applaud, {{count}}",
+  "language": "Language",
+  "settings": "Settings",
+  "selectLanguage": "Select language"
+}

@@ -1,0 +1,11 @@
+{
+  "Hello_World": "Ahoj světe",
+  "follow": "Sledovat",
+  "following": "Sledujete",
+  "battleLive": "Battle živě",
+  "battleIn": "Battle za {{time}}",
+  "applaud": "Potlesk, {{count}}",
+  "language": "Jazyk",
+  "settings": "Nastavení",
+  "selectLanguage": "Vyberte jazyk"
+}

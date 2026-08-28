@@ -1,1 +1,7 @@
-// Language / locale setup (e.g. i18next + expo-localization)
+export {
+  appLanguageIsRtl,
+  languagePickerRows,
+  localeTagForAppLanguage,
+  supportedLanguages,
+  type AppLanguage,
+} from './languages';

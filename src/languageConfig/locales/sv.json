@@ -1,0 +1,11 @@
+{
+  "Hello_World": "Hej världen",
+  "follow": "Följ",
+  "following": "Följer",
+  "battleLive": "Battle live",
+  "battleIn": "Battle om {{time}}",
+  "applaud": "Applåd, {{count}}",
+  "language": "Språk",
+  "settings": "Inställningar",
+  "selectLanguage": "Välj språk"
+}

@@ -1,8 +1,10 @@
 import { memo } from 'react';
 import { Text, View } from 'react-native';
-import { useCurrentTime } from '../../context/CurrentTimeContext';
-import { formatDuration, getBattleStatus } from '../../utils/formatters';
+import { useTranslation } from 'react-i18next';
 import { globalStyles } from '../../globalStyles';
+import { useCurrentTime } from '../../store/useCurrentTimeStore';
+import { useLanguageStore } from '../../store/useLanguageStore';
+import { formatDuration, getBattleStatus } from '../../utils/formatters';
 import { styles } from './styles/BattleChip.styles';
 
 interface BattleChipProps {
@@ -10,6 +12,8 @@ interface BattleChipProps {
 }
 
 function BattleChip({ battleStartsAt }: BattleChipProps) {
+  const { t } = useTranslation();
+  const isRtl = useLanguageStore(state => state.isRtl);
   const now = useCurrentTime();
   const status = getBattleStatus(battleStartsAt, now);
 
@@ -19,8 +23,8 @@ function BattleChip({ battleStartsAt }: BattleChipProps) {
 
   const isLive = status.kind === 'live';
   const label = isLive
-    ? 'Battle Live'
-    : `Battle in ${formatDuration(status.remainingMs)}`;
+    ? t('battleLive')
+    : t('battleIn', { time: formatDuration(status.remainingMs) });
 
   return (
     <View
@@ -33,6 +37,7 @@ function BattleChip({ battleStartsAt }: BattleChipProps) {
           globalStyles.textGold,
           styles.label,
           isLive && globalStyles.textLive,
+          isRtl ? globalStyles.writingRtl : globalStyles.writingLtr,
         ]}
       >
         {label}

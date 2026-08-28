@@ -6,6 +6,7 @@ import {
   View,
   type GestureResponderEvent,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { formatCount } from '../../utils/formatters';
 import { globalStyles } from '../../globalStyles';
 import type { ClapOrigin } from './ClapBurst';
@@ -18,6 +19,7 @@ interface ApplaudButtonProps {
 }
 
 function ApplaudButton({ count, onPress, onBurst }: ApplaudButtonProps) {
+  const { t } = useTranslation();
   const scale = useRef(new Animated.Value(1)).current;
   const displayCount = Number.isFinite(count) ? Math.max(0, count) : 0;
 
@@ -58,7 +60,7 @@ function ApplaudButton({ count, onPress, onBurst }: ApplaudButtonProps) {
       onPress={handlePress}
       hitSlop={8}
       accessibilityRole="button"
-      accessibilityLabel={`Applaud, ${formatCount(displayCount)}`}
+      accessibilityLabel={t('applaud', { count: formatCount(displayCount) })}
     >
       <View style={styles.container}>
         <Animated.Text

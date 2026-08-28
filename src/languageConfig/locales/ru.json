@@ -1,0 +1,11 @@
+{
+  "Hello_World": "Привет, мир",
+  "follow": "Подписаться",
+  "following": "Вы подписаны",
+  "battleLive": "Баттл в эфире",
+  "battleIn": "Баттл через {{time}}",
+  "applaud": "Аплодисменты, {{count}}",
+  "language": "Язык",
+  "settings": "Настройки",
+  "selectLanguage": "Выберите язык"
+}

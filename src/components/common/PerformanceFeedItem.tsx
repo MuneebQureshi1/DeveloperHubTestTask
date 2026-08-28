@@ -1,9 +1,11 @@
 import { memo, useCallback, useRef, useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import Video from 'react-native-video';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors } from '../../constants/theme';
 import { globalStyles } from '../../globalStyles';
+import { useLanguageStore } from '../../store/useLanguageStore';
 import type { Performance } from '../../types/performance';
 import ApplaudButton from '../ui/ApplaudButton';
 import BattleChip from '../ui/BattleChip';
@@ -29,6 +31,8 @@ function PerformanceFeedItem({
   onToggleFollow,
   onApplaud,
 }: PerformanceFeedItemProps) {
+  const { t } = useTranslation();
+  const isRtl = useLanguageStore(state => state.isRtl);
   const insets = useSafeAreaInsets();
   const burstIdRef = useRef(0);
   const [bursts, setBursts] = useState<Array<ClapOrigin & { id: number }>>([]);
@@ -82,7 +86,11 @@ function PerformanceFeedItem({
           <View style={styles.metaRow} pointerEvents="box-none">
             <View style={styles.meta}>
               <Text
-                style={[globalStyles.overlayText, styles.creatorLine]}
+                style={[
+                  globalStyles.overlayText,
+                  styles.creatorLine,
+                  isRtl ? globalStyles.writingRtl : globalStyles.writingLtr,
+                ]}
                 numberOfLines={1}
               >
                 {item.creatorName}
@@ -99,15 +107,16 @@ function PerformanceFeedItem({
                   isFollowing && styles.followButtonActive,
                 ]}
                 accessibilityRole="button"
-                accessibilityLabel={isFollowing ? 'Following' : 'Follow'}
+                accessibilityLabel={isFollowing ? t('following') : t('follow')}
               >
                 <Text
                   style={[
                     styles.followLabel,
                     isFollowing && globalStyles.textPrimary,
+                    isRtl ? globalStyles.writingRtl : globalStyles.writingLtr,
                   ]}
                 >
-                  {isFollowing ? 'Following' : 'Follow'}
+                  {isFollowing ? t('following') : t('follow')}
                 </Text>
               </Pressable>
             </View>
