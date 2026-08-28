@@ -4,5 +4,13 @@
   "selectLanguage": "Select language",
   "appearance": "Appearance",
   "lightMode": "Light",
-  "darkMode": "Dark"
+  "darkMode": "Dark",
+  "replayCeremony": "Replay Ceremony",
+  "scoreLocksIn": "Score locks in",
+  "live": "LIVE",
+  "score": "SCORE",
+  "vs": "VS",
+  "champion": "CHAMPION",
+  "watchReplay": "Watch Replay",
+  "backToStage": "Back to Stage"
 }

@@ -4,5 +4,13 @@
   "selectLanguage": "Chọn ngôn ngữ",
   "appearance": "Giao diện",
   "lightMode": "Sáng",
-  "darkMode": "Tối"
+  "darkMode": "Tối",
+  "replayCeremony": "Phát lại lễ trao giải",
+  "scoreLocksIn": "Điểm khóa sau",
+  "live": "TRỰC TIẾP",
+  "score": "ĐIỂM",
+  "vs": "VS",
+  "champion": "NHÀ VÔ ĐỊCH",
+  "watchReplay": "Xem phát lại",
+  "backToStage": "Về sân khấu"
 }

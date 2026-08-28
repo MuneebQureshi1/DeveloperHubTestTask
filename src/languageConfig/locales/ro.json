@@ -4,5 +4,13 @@
   "selectLanguage": "Selectează limba",
   "appearance": "Aspect",
   "lightMode": "Deschis",
-  "darkMode": "Întunecat"
+  "darkMode": "Întunecat",
+  "replayCeremony": "Refă ceremonia",
+  "scoreLocksIn": "Scorul se blochează în",
+  "live": "LIVE",
+  "score": "SCOR",
+  "vs": "VS",
+  "champion": "CAMPION",
+  "watchReplay": "Vezi reluarea",
+  "backToStage": "Înapoi pe scenă"
 }

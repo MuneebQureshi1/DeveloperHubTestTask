@@ -4,5 +4,13 @@
   "selectLanguage": "Selecteer taal",
   "appearance": "Weergave",
   "lightMode": "Licht",
-  "darkMode": "Donker"
+  "darkMode": "Donker",
+  "replayCeremony": "Ceremonie opnieuw",
+  "scoreLocksIn": "Score vergrendelt over",
+  "live": "LIVE",
+  "score": "SCORE",
+  "vs": "VS",
+  "champion": "KAMPIOEN",
+  "watchReplay": "Bekijk herhaling",
+  "backToStage": "Terug naar het podium"
 }

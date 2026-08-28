@@ -4,5 +4,13 @@
   "selectLanguage": "Επιλογή γλώσσας",
   "appearance": "Εμφάνιση",
   "lightMode": "Φωτεινό",
-  "darkMode": "Σκοτεινό"
+  "darkMode": "Σκοτεινό",
+  "replayCeremony": "Επανάληψη τελετής",
+  "scoreLocksIn": "Κλείδωμα σκορ σε",
+  "live": "ΖΩΝΤΑΝΑ",
+  "score": "ΣΚΟΡ",
+  "vs": "VS",
+  "champion": "ΠΡΩΤΑΘΛΗΤΗΣ",
+  "watchReplay": "Δες επανάληψη",
+  "backToStage": "Πίσω στη σκηνή"
 }

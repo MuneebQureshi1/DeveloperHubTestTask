@@ -1,5 +1,49 @@
 /* eslint-env jest */
 
+jest.mock('react-native-reanimated', () => {
+  const { View, Text, Image, ScrollView } = require('react-native');
+
+  const createSharedValue = initial => ({ value: initial });
+
+  return {
+    __esModule: true,
+    default: {
+      View,
+      Text,
+      Image,
+      ScrollView,
+      createAnimatedComponent: Component => Component,
+    },
+    useSharedValue: initial => createSharedValue(initial),
+    useAnimatedStyle: updater => updater(),
+    useDerivedValue: updater => ({ value: updater() }),
+    useAnimatedProps: updater => updater(),
+    withTiming: (value, _config, callback) => {
+      if (callback) {
+        callback(true);
+      }
+      return value;
+    },
+    withSpring: (value, _config, callback) => {
+      if (callback) {
+        callback(true);
+      }
+      return value;
+    },
+    withSequence: (...values) => values[values.length - 1],
+    withDelay: (_delay, value) => value,
+    withRepeat: value => value,
+    cancelAnimation: () => {},
+    runOnJS: fn => fn,
+    runOnUI: fn => fn,
+    Easing: {
+      linear: value => value,
+      ease: value => value,
+      inOut: () => value => value,
+    },
+  };
+});
+
 jest.mock('react-native-localize', () => ({
   getLocales: () => [{ countryCode: 'US', languageCode: 'en' }],
 }));

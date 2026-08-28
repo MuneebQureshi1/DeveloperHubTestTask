@@ -4,5 +4,13 @@
   "selectLanguage": "Выберите язык",
   "appearance": "Оформление",
   "lightMode": "Светлая",
-  "darkMode": "Тёмная"
+  "darkMode": "Тёмная",
+  "replayCeremony": "Повторить церемонию",
+  "scoreLocksIn": "Счёт закроется через",
+  "live": "ЭФИР",
+  "score": "СЧЁТ",
+  "vs": "VS",
+  "champion": "ЧЕМПИОН",
+  "watchReplay": "Смотреть повтор",
+  "backToStage": "Назад на сцену"
 }

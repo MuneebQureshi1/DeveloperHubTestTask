@@ -8,6 +8,6 @@ module.exports = {
     '<rootDir>/jest.setup.js',
   ],
   transformIgnorePatterns: [
-    'node_modules/(?!((jest-)?react-native|@react-native(-community)?|react-native-gesture-handler|react-native-screens|react-native-localize|react-native-keychain|@react-navigation|i18next|react-i18next)/)',
+    'node_modules/(?!((jest-)?react-native|@react-native(-community)?|react-native-gesture-handler|react-native-reanimated|react-native-screens|react-native-localize|react-native-keychain|@react-navigation|i18next|react-i18next)/)',
   ],
 };

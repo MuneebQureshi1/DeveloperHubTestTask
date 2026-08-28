@@ -4,5 +4,13 @@
   "selectLanguage": "Välj språk",
   "appearance": "Utseende",
   "lightMode": "Ljust",
-  "darkMode": "Mörkt"
+  "darkMode": "Mörkt",
+  "replayCeremony": "Spela om ceremonin",
+  "scoreLocksIn": "Poäng låses om",
+  "live": "LIVE",
+  "score": "POÄNG",
+  "vs": "VS",
+  "champion": "MÄSTARE",
+  "watchReplay": "Titta på repris",
+  "backToStage": "Tillbaka till scenen"
 }

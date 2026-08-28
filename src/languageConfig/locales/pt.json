@@ -4,5 +4,13 @@
   "selectLanguage": "Selecionar idioma",
   "appearance": "Aparência",
   "lightMode": "Claro",
-  "darkMode": "Escuro"
+  "darkMode": "Escuro",
+  "replayCeremony": "Repetir cerimônia",
+  "scoreLocksIn": "Pontuação trava em",
+  "live": "AO VIVO",
+  "score": "PONTOS",
+  "vs": "VS",
+  "champion": "CAMPEÃO",
+  "watchReplay": "Ver replay",
+  "backToStage": "Voltar ao palco"
 }

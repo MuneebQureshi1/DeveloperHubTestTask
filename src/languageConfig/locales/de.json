@@ -4,5 +4,13 @@
   "selectLanguage": "Sprache wählen",
   "appearance": "Erscheinungsbild",
   "lightMode": "Hell",
-  "darkMode": "Dunkel"
+  "darkMode": "Dunkel",
+  "replayCeremony": "Zeremonie wiederholen",
+  "scoreLocksIn": "Punkte werden gesperrt in",
+  "live": "LIVE",
+  "score": "PUNKTE",
+  "vs": "VS",
+  "champion": "CHAMPION",
+  "watchReplay": "Wiederholung ansehen",
+  "backToStage": "Zurück zur Bühne"
 }

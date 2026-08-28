@@ -4,5 +4,13 @@
   "selectLanguage": "言語を選択",
   "appearance": "外観",
   "lightMode": "ライト",
-  "darkMode": "ダーク"
+  "darkMode": "ダーク",
+  "replayCeremony": "セレモニーを再生",
+  "scoreLocksIn": "スコア確定まで",
+  "live": "LIVE",
+  "score": "スコア",
+  "vs": "VS",
+  "champion": "チャンピオン",
+  "watchReplay": "リプレイを見る",
+  "backToStage": "ステージに戻る"
 }

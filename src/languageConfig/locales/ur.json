@@ -4,5 +4,13 @@
   "selectLanguage": "زبان منتخب کریں",
   "appearance": "ظاہری شکل",
   "lightMode": "روشن",
-  "darkMode": "تاریک"
+  "darkMode": "تاریک",
+  "replayCeremony": "تقریب دوبارہ چلائیں",
+  "scoreLocksIn": "اسکور لاک ہوگا",
+  "live": "لائیو",
+  "score": "اسکور",
+  "vs": "VS",
+  "champion": "چیمپئن",
+  "watchReplay": "ری پلے دیکھیں",
+  "backToStage": "اسٹیج پر واپس"
 }

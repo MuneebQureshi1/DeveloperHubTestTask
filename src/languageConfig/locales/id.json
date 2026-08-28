@@ -4,5 +4,13 @@
   "selectLanguage": "Pilih bahasa",
   "appearance": "Tampilan",
   "lightMode": "Terang",
-  "darkMode": "Gelap"
+  "darkMode": "Gelap",
+  "replayCeremony": "Putar ulang upacara",
+  "scoreLocksIn": "Skor terkunci dalam",
+  "live": "LANGSUNG",
+  "score": "SKOR",
+  "vs": "VS",
+  "champion": "JUARA",
+  "watchReplay": "Tonton ulang",
+  "backToStage": "Kembali ke panggung"
 }

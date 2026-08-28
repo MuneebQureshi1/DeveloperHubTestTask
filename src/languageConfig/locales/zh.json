@@ -4,5 +4,13 @@
   "selectLanguage": "选择语言",
   "appearance": "外观",
   "lightMode": "浅色",
-  "darkMode": "深色"
+  "darkMode": "深色",
+  "replayCeremony": "重播仪式",
+  "scoreLocksIn": "分数锁定倒计时",
+  "live": "直播",
+  "score": "分数",
+  "vs": "VS",
+  "champion": "冠军",
+  "watchReplay": "观看回放",
+  "backToStage": "返回舞台"
 }

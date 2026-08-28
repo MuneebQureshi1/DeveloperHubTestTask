@@ -17,7 +17,7 @@ function createStyles(colors: ThemeColors) {
       paddingVertical: Utility.SP_6,
       position: 'absolute',
       end: Utility_Horizontal.SP_16,
-      zIndex: 2,
+      zIndex: 20,
     },
     languageLabel: {
       color: colors.gold,

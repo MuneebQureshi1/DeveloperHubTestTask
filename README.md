@@ -2,7 +2,7 @@
 
 React Native CLI project (not Expo). Work for this pass lives on the `Test_Task_2` branch.
 
-The app keeps language, appearance, navigation, and Settings. The Stage Feed from the first task is not part of this branch.
+The app opens on **Home**, which runs the Battle Winner Ceremony — a staged Reanimated animation sequence with two mock creators, score lock, winner reveal, and interrupt-safe replay.
 
 ## Prerequisites
 
@@ -50,11 +50,19 @@ npm install
 
 ### Step 3. Install iOS pods (iOS only)
 
-Run this the first time you clone, and again after native dependency changes (`react-native-localize` or `react-native-keychain`):
+Run this the first time you clone, and again after native dependency changes (`react-native-reanimated`, `react-native-worklets`, `react-native-localize`, or `react-native-keychain`):
 
 ```sh
 bundle install
 bundle exec pod install --project-directory=ios
+```
+
+Or from the `ios` folder (do not run `cd ios` twice):
+
+```sh
+cd ios
+pod install
+cd ..
 ```
 
 Skip this step if you only plan to run Android.
@@ -81,7 +89,7 @@ In a second terminal:
 npm run ios
 ```
 
-The app opens on Home. The first launch can take several minutes while Xcode builds.
+The app opens on Home with the Winner Ceremony. The first launch can take several minutes while Xcode builds.
 
 To target a specific simulator:
 
@@ -97,8 +105,6 @@ Start an emulator from Android Studio (Device Manager), then in a second termina
 npm run android
 ```
 
-The app opens on Home.
-
 ### Step 7. Run unit tests (optional)
 
 ```sh
@@ -107,17 +113,67 @@ npm test -- --watchAll=false --watchman=false
 
 ## What you should see
 
-1. Home is an empty screen with a Language control.
-2. Open Settings from that control to change language or appearance.
+1. Two creator cards in a VS layout with a 5-second animated countdown.
+2. Score lock pulse on both cards when the countdown hits zero.
+3. Loser recedes while the winner moves to center with gold treatment.
+4. CHAMPION title enters with spring choreography and gold particles burst.
+5. Watch Replay and Back to Stage buttons animate in at the end.
+6. **Replay Ceremony** (top of screen) safely restarts the sequence at any moment.
+
+Dark appearance is recommended for the intended near-black, gold-accented look. Change it in Settings via Home if needed.
 
 ## Project layout
 
 `App.tsx` hydrates language and theme, and mounts navigation.
 
-`src/navigation/RootNavigator.tsx` is a native stack. Home is the initial route. Settings is optional.
+`src/screens/Home/ui/HomeScreen.tsx` — hosts the Winner Ceremony UI (plus Language → Settings).
 
-`src/screens/Home/ui/HomeScreen.tsx` is the landing screen.
+`src/screens/WinnerCeremony/` — ceremony components, animation hook, styles, and mock data used by Home.
 
-`src/screens/Settings/ui/SettingsScreen.tsx` changes language and light/dark appearance.
+`src/navigation/RootNavigator.tsx` — native stack; Home is the initial route.
 
-`src/store/useLanguageStore.ts` and `src/store/useThemeStore.ts` persist language and appearance in the OS keychain.
+`src/store/useThemeStore.ts` — persisted light/dark appearance.
+
+## Technical Decisions
+
+### Why Reanimated
+
+React Native Reanimated runs the ceremony choreography on the UI thread via shared values and animated styles. Card transforms, score lock pulses, champion entrance, and resolution buttons avoid per-frame React re-renders. Only the countdown digit and replay key use React state.
+
+### Sequence orchestration
+
+`useCeremonySequence` drives a staged timeline: countdown → score lock → winner/loser reveal → gold treatment → CHAMPION title → particles → resolution buttons. Each stage schedules the next with guarded timeouts that check an active generation id before running.
+
+### Replay interruption
+
+Each replay increments a generation counter, clears JS timers, calls `cancelAnimation` on every shared value, resets all values to initial state, and starts Stage 1 again. Stale timeouts and animation callbacks from prior runs are ignored when their generation no longer matches.
+
+### Performance
+
+Animations use `withTiming`, `withSpring`, and `withSequence` on shared values. Particle count is capped at 16. Creator cards compose a single animated transform per side. No sound, network, or heavy layout work runs during the sequence.
+
+### Animation sequencing (one sentence)
+
+The ceremony builds suspense with the countdown and score lock, then shifts hierarchy by receding the loser and elevating the winner before celebrating with the CHAMPION title and particles, ending with resolution buttons so the viewer can breathe after the climax.
+
+## With more time
+
+- Richer particle shapes, trails, and haptic feedback on score lock
+- VoiceOver labels and reduced-motion support
+- Dynamic winner data from props or navigation params
+- Tablet and landscape adaptive layouts
+- Finer motion polish (easing curves, camera-style parallax)
+- Unit tests for `resolveBattleOutcome` and replay generation safety
+
+## Screen recording checklist
+
+Use a 30–60 second capture (iOS Simulator or device):
+
+1. Launch app — show VS layout and countdown starting at **5**.
+2. Let countdown reach **0** — show score lock pulse on both cards.
+3. Show loser dimming/receding and winner moving center with gold glow.
+4. Show **CHAMPION** spring entrance and particle burst.
+5. Show **Watch Replay** and **Back to Stage** buttons animating in.
+6. Tap **Replay Ceremony** during an active animation (e.g. mid-countdown or during winner movement).
+7. Confirm clean restart with no overlapping animations or crashes.
+8. Optional: tap Replay rapidly 2–3 times to verify stability.

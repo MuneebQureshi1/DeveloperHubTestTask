@@ -4,5 +4,13 @@
   "selectLanguage": "Wybierz język",
   "appearance": "Wygląd",
   "lightMode": "Jasny",
-  "darkMode": "Ciemny"
+  "darkMode": "Ciemny",
+  "replayCeremony": "Powtórz ceremonię",
+  "scoreLocksIn": "Wynik zablokuje się za",
+  "live": "NA ŻYWO",
+  "score": "WYNIK",
+  "vs": "VS",
+  "champion": "MISTRZ",
+  "watchReplay": "Obejrzyj powtórkę",
+  "backToStage": "Wróć na scenę"
 }

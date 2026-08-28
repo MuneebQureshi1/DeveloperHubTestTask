@@ -4,5 +4,13 @@
   "selectLanguage": "اختر اللغة",
   "appearance": "المظهر",
   "lightMode": "فاتح",
-  "darkMode": "داكن"
+  "darkMode": "داكن",
+  "replayCeremony": "إعادة الحفل",
+  "scoreLocksIn": "إغلاق النتيجة خلال",
+  "live": "مباشر",
+  "score": "النتيجة",
+  "vs": "VS",
+  "champion": "البطل",
+  "watchReplay": "شاهد الإعادة",
+  "backToStage": "العودة إلى المسرح"
 }

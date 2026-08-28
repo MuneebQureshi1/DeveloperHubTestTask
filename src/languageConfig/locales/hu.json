@@ -4,5 +4,13 @@
   "selectLanguage": "Nyelv kiválasztása",
   "appearance": "Megjelenés",
   "lightMode": "Világos",
-  "darkMode": "Sötét"
+  "darkMode": "Sötét",
+  "replayCeremony": "Ceremonía újra",
+  "scoreLocksIn": "Pontok zárolása",
+  "live": "ÉLŐ",
+  "score": "PONT",
+  "vs": "VS",
+  "champion": "BAJNOK",
+  "watchReplay": "Visszajátszás",
+  "backToStage": "Vissza a színpadra"
 }

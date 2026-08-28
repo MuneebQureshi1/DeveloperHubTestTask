@@ -4,5 +4,13 @@
   "selectLanguage": "Vyberte jazyk",
   "appearance": "Vzhled",
   "lightMode": "Světlý",
-  "darkMode": "Tmavý"
+  "darkMode": "Tmavý",
+  "replayCeremony": "Znovu přehrát ceremonii",
+  "scoreLocksIn": "Skóre se uzamkne za",
+  "live": "ŽIVĚ",
+  "score": "SKÓRE",
+  "vs": "VS",
+  "champion": "ŠAMPION",
+  "watchReplay": "Sledovat záznam",
+  "backToStage": "Zpět na pódium"
 }

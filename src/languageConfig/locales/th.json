@@ -4,5 +4,13 @@
   "selectLanguage": "เลือกภาษา",
   "appearance": "ลักษณะ",
   "lightMode": "สว่าง",
-  "darkMode": "มืด"
+  "darkMode": "มืด",
+  "replayCeremony": "เล่นพิธีอีกครั้ง",
+  "scoreLocksIn": "ล็อกคะแนนใน",
+  "live": "สด",
+  "score": "คะแนน",
+  "vs": "VS",
+  "champion": "แชมป์",
+  "watchReplay": "ดูรีเพลย์",
+  "backToStage": "กลับไปเวที"
 }

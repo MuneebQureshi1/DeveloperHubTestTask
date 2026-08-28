@@ -4,5 +4,13 @@
   "selectLanguage": "Dil seç",
   "appearance": "Görünüm",
   "lightMode": "Açık",
-  "darkMode": "Koyu"
+  "darkMode": "Koyu",
+  "replayCeremony": "Töreni tekrar oynat",
+  "scoreLocksIn": "Skor kilitleniyor",
+  "live": "CANLI",
+  "score": "SKOR",
+  "vs": "VS",
+  "champion": "ŞAMPİYON",
+  "watchReplay": "Tekrarı izle",
+  "backToStage": "Sahneye dön"
 }

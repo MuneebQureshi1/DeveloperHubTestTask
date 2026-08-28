@@ -4,5 +4,13 @@
   "selectLanguage": "ভাষা নির্বাচন করুন",
   "appearance": "চেহারা",
   "lightMode": "হালকা",
-  "darkMode": "গাঢ়"
+  "darkMode": "গাঢ়",
+  "replayCeremony": "অনুষ্ঠান আবার চালান",
+  "scoreLocksIn": "স্কোর লক হবে",
+  "live": "লাইভ",
+  "score": "স্কোর",
+  "vs": "VS",
+  "champion": "চ্যাম্পিয়ন",
+  "watchReplay": "রিপ্লে দেখুন",
+  "backToStage": "স্টেজে ফিরে যান"
 }
