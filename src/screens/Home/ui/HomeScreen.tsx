@@ -2,18 +2,17 @@ import { useCallback, useRef, useState } from 'react';
 import {
   FlatList,
   Platform,
-  StyleSheet,
   useWindowDimensions,
   View,
   type LayoutChangeEvent,
   type ListRenderItemInfo,
 } from 'react-native';
-import PerformanceFeedItem from '../../components/common/PerformanceFeedItem';
-import { MOCK_PERFORMANCES } from '../../constants/constantsArray';
-import { colors } from '../../constants/theme';
-import { CurrentTimeProvider } from '../../hooks/useCurrentTime';
-import type { Performance } from '../../types/performance';
-import type { HomeScreenProps } from '../../types/navigation';
+import PerformanceFeedItem from '../../../components/common/PerformanceFeedItem';
+import { MOCK_PERFORMANCES } from '../../../constants/constantsArray';
+import { CurrentTimeProvider } from '../../../hooks/useCurrentTime';
+import type { HomeScreenProps } from '../../../types/navigation';
+import type { Performance } from '../../../types/performance';
+import { styles } from '../styles/HomeScreen.styles';
 
 const VIEWABILITY_CONFIG = {
   itemVisiblePercentThreshold: 80,
@@ -127,12 +126,5 @@ function HomeScreen(_props: HomeScreenProps) {
     </CurrentTimeProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  root: {
-    backgroundColor: colors.background,
-    flex: 1,
-  },
-});
 
 export default HomeScreen;

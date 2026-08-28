@@ -2,14 +2,14 @@ import { useRef } from 'react';
 import {
   Animated,
   Pressable,
-  StyleSheet,
   Text,
   View,
   type GestureResponderEvent,
 } from 'react-native';
-import { colors } from '../../constants/theme';
 import { formatCount } from '../../utils/formatters';
+import { globalStyles } from '../../globalStyles';
 import type { ClapOrigin } from './ClapBurst';
+import { styles } from './styles/ApplaudButton.styles';
 
 interface ApplaudButtonProps {
   count: number;
@@ -67,29 +67,12 @@ function ApplaudButton({ count, onPress, onBurst }: ApplaudButtonProps) {
         >
           👏
         </Animated.Text>
-        <Text style={styles.count}>{formatCount(displayCount)}</Text>
+        <Text style={[globalStyles.overlayTextSmall, styles.count]}>
+          {formatCount(displayCount)}
+        </Text>
       </View>
     </Pressable>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    minWidth: 56,
-  },
-  emoji: {
-    fontSize: 28,
-    marginBottom: 4,
-  },
-  count: {
-    color: colors.textPrimary,
-    fontSize: 13,
-    fontWeight: '600',
-    textShadowColor: 'rgba(0, 0, 0, 0.7)',
-    textShadowOffset: { width: 0, height: 1 },
-    textShadowRadius: 3,
-  },
-});
 
 export default ApplaudButton;

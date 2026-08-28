@@ -1,12 +1,6 @@
 import { useEffect, useRef } from 'react';
-import {
-  Animated,
-  Easing,
-  StyleSheet,
-  useWindowDimensions,
-} from 'react-native';
-
-const EMOJI_SIZE = 64;
+import { Animated, Easing, useWindowDimensions } from 'react-native';
+import { EMOJI_SIZE, styles } from './styles/ClapBurst.styles';
 
 export interface ClapOrigin {
   x: number;
@@ -156,14 +150,5 @@ function ClapBurst({ origin, onComplete }: ClapBurstProps) {
     </Animated.Text>
   );
 }
-
-const styles = StyleSheet.create({
-  emoji: {
-    fontSize: EMOJI_SIZE,
-    left: 0,
-    position: 'absolute',
-    top: 0,
-  },
-});
 
 export default ClapBurst;
