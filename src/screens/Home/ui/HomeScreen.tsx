@@ -94,15 +94,19 @@ function HomeScreen({ navigation }: HomeScreenProps) {
       >
         <View pointerEvents="none" style={ceremonyStyles.topBarSide} />
         <View style={ceremonyStyles.topBarCenter}>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={t('replayCeremony')}
-            onPress={replayCeremony}
-            hitSlop={8}
-            style={ceremonyStyles.replayButton}
-          >
-            <Text style={ceremonyStyles.replayLabel}>{t('replayCeremony')}</Text>
-          </Pressable>
+          {countdownValue > 0 ? null : (
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel={t('replayCeremony')}
+              onPress={replayCeremony}
+              hitSlop={8}
+              style={ceremonyStyles.replayButton}
+            >
+              <Text style={ceremonyStyles.replayLabel}>
+                {t('replayCeremony')}
+              </Text>
+            </Pressable>
+          )}
         </View>
         <View style={ceremonyStyles.topBarSide}>
           <Pressable
