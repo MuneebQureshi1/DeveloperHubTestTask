@@ -2,6 +2,7 @@ import { useEffect, useMemo } from 'react';
 import { View } from 'react-native';
 import Animated, {
   cancelAnimation,
+  Easing,
   useAnimatedStyle,
   useSharedValue,
   withDelay,
@@ -11,15 +12,28 @@ import Animated, {
 import type { ThemeColors } from '../../constants/theme';
 import { celebrationParticlesStyles as styles } from './styles/CelebrationParticles.styles';
 
-const PARTICLE_COUNT = 16;
+const CONFETTI_COUNT = 36;
+const CONFETTI_COLORS = [
+  '#D4A94A',
+  '#F0D78C',
+  '#E8C56A',
+  '#FFFFFF',
+  '#C9A227',
+  '#F5E6B8',
+] as const;
 
-interface ParticleConfig {
+interface ConfettiConfig {
   id: number;
-  angle: number;
-  distance: number;
+  startX: number;
+  drift: number;
+  sway: number;
+  fall: number;
   delay: number;
   duration: number;
-  size: number;
+  width: number;
+  height: number;
+  spin: number;
+  color: string;
 }
 
 interface CelebrationParticlesProps {
@@ -27,35 +41,45 @@ interface CelebrationParticlesProps {
   burstToken: number;
 }
 
-function createParticleConfigs(): ParticleConfig[] {
-  return Array.from({ length: PARTICLE_COUNT }, (_, index) => {
-    const angle = (index / PARTICLE_COUNT) * Math.PI * 2 + (index % 3) * 0.18;
+function createConfettiConfigs(gold: string): ConfettiConfig[] {
+  return Array.from({ length: CONFETTI_COUNT }, (_, index) => {
+    const column = index % 9;
+    const lane = (column - 4) * 34;
+    const outward = index % 2 === 0 ? 1 : -1;
+
     return {
       id: index,
-      angle,
-      distance: 48 + (index % 5) * 14,
-      delay: (index % 4) * 40,
-      duration: 680 + (index % 6) * 90,
-      size: 4 + (index % 3),
+      startX: lane,
+      drift: outward * (28 + (index % 6) * 18),
+      sway: 10 + (index % 5) * 6,
+      fall: 220 + (index % 8) * 28,
+      delay: (index % 10) * 28,
+      duration: 1320 + (index % 7) * 160,
+      width: 5 + (index % 4),
+      height: 9 + (index % 5) * 2,
+      spin: outward * (220 + index * 17),
+      color: index % 5 === 0 ? gold : CONFETTI_COLORS[index % CONFETTI_COLORS.length],
     };
   });
 }
 
-interface SingleParticleProps {
-  config: ParticleConfig;
-  colors: ThemeColors;
+interface ConfettiPieceProps {
+  config: ConfettiConfig;
   burstToken: number;
 }
 
-function SingleParticle({ config, colors, burstToken }: SingleParticleProps) {
+function ConfettiPiece({ config, burstToken }: ConfettiPieceProps) {
   const progress = useSharedValue(0);
   const opacity = useSharedValue(0);
+  const rotate = useSharedValue(0);
 
   useEffect(() => {
     cancelAnimation(progress);
     cancelAnimation(opacity);
+    cancelAnimation(rotate);
     progress.value = 0;
     opacity.value = 0;
+    rotate.value = 0;
 
     if (burstToken === 0) {
       return;
@@ -63,28 +87,46 @@ function SingleParticle({ config, colors, burstToken }: SingleParticleProps) {
 
     progress.value = withDelay(
       config.delay,
-      withTiming(1, { duration: config.duration }),
+      withTiming(1, {
+        duration: config.duration,
+        easing: Easing.out(Easing.quad),
+      }),
     );
     opacity.value = withDelay(
       config.delay,
       withSequence(
-        withTiming(1, { duration: config.duration * 0.3 }),
-        withTiming(0, { duration: config.duration * 0.7 }),
+        withTiming(1, { duration: 140 }),
+        withTiming(1, { duration: config.duration * 0.55 }),
+        withTiming(0, { duration: config.duration * 0.35 }),
       ),
     );
-  }, [burstToken, config.delay, config.duration, opacity, progress]);
+    rotate.value = withDelay(
+      config.delay,
+      withTiming(config.spin, { duration: config.duration }),
+    );
+  }, [
+    burstToken,
+    config.delay,
+    config.duration,
+    config.spin,
+    opacity,
+    progress,
+    rotate,
+  ]);
 
   const animatedStyle = useAnimatedStyle(() => {
-    const travel = progress.value * config.distance;
-    const x = Math.cos(config.angle) * travel;
-    const y = Math.sin(config.angle) * travel;
+    const t = progress.value;
+    const flutter = Math.sin(t * Math.PI * 3) * config.sway;
+    const x = config.startX + config.drift * t + flutter;
+    const y = -90 + config.fall * t * t;
 
     return {
       opacity: opacity.value,
       transform: [
         { translateX: x },
         { translateY: y },
-        { scale: 1 - progress.value * 0.35 },
+        { rotate: `${rotate.value}deg` },
+        { scaleY: 0.35 + Math.abs(Math.cos(t * Math.PI * 2)) * 0.65 },
       ],
     };
   });
@@ -95,10 +137,10 @@ function SingleParticle({ config, colors, burstToken }: SingleParticleProps) {
       style={[
         styles.particle,
         {
-          backgroundColor: colors.gold,
-          width: config.size,
-          height: config.size,
-          borderRadius: config.size / 2,
+          backgroundColor: config.color,
+          width: config.width,
+          height: config.height,
+          borderRadius: 1,
         },
         animatedStyle,
       ]}
@@ -107,15 +149,17 @@ function SingleParticle({ config, colors, burstToken }: SingleParticleProps) {
 }
 
 function CelebrationParticles({ colors, burstToken }: CelebrationParticlesProps) {
-  const configs = useMemo(() => createParticleConfigs(), []);
+  const configs = useMemo(
+    () => createConfettiConfigs(colors.gold),
+    [colors.gold],
+  );
 
   return (
     <View pointerEvents="none" style={styles.container}>
       {configs.map(config => (
-        <SingleParticle
+        <ConfettiPiece
           key={config.id}
           config={config}
-          colors={colors}
           burstToken={burstToken}
         />
       ))}
