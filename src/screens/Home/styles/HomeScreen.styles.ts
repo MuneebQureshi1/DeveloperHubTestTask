@@ -46,6 +46,15 @@ function createStyles(colors: ThemeColors) {
       letterSpacing: 0.7,
       textTransform: 'uppercase',
     },
+    themeButton: {
+      alignSelf: 'flex-start',
+      backgroundColor: colors.chipBackground,
+      borderColor: colors.borderStrong,
+      borderRadius: 999,
+      borderWidth: Utility.SP_1,
+      paddingHorizontal: Utility_Horizontal.SP_12,
+      paddingVertical: Utility.SP_6,
+    },
     languageButton: {
       alignSelf: 'flex-end',
       backgroundColor: colors.chipBackground,

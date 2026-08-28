@@ -22,12 +22,6 @@ const TIMING = {
   button2Delay: 500,
 } as const;
 
-const SPRING_CHAMPION = {
-  damping: 12,
-  stiffness: 140,
-  mass: 0.8,
-} as const;
-
 export interface CeremonySharedValues {
   countdownScale: SharedValue<number>;
   countdownOpacity: SharedValue<number>;
@@ -59,17 +53,23 @@ export interface CeremonySharedValues {
   contentLift: SharedValue<number>;
   resolutionTranslateY: SharedValue<number>;
   resolutionOpacity: SharedValue<number>;
+  leftScoreValue: SharedValue<number>;
+  rightScoreValue: SharedValue<number>;
 }
 
 interface UseCeremonySequenceParams {
   winnerSide: CreatorSide;
   centerOffset: number;
+  leftScore: number;
+  rightScore: number;
 }
 
 interface UseCeremonySequenceResult {
   countdownValue: number;
   ceremonyKey: number;
   particleBurstToken: number;
+  championPlayToken: number;
+  isResolutionVisible: boolean;
   sharedValues: CeremonySharedValues;
   replayCeremony: () => void;
 }
@@ -77,19 +77,27 @@ interface UseCeremonySequenceResult {
 export function useCeremonySequence({
   winnerSide,
   centerOffset,
+  leftScore,
+  rightScore,
 }: UseCeremonySequenceParams): UseCeremonySequenceResult {
   const generationRef = useRef(0);
   const countdownIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const timeoutRefs = useRef<ReturnType<typeof setTimeout>[]>([]);
   const winnerSideRef = useRef(winnerSide);
   const centerOffsetRef = useRef(centerOffset);
+  const leftScoreRef = useRef(leftScore);
+  const rightScoreRef = useRef(rightScore);
 
   winnerSideRef.current = winnerSide;
   centerOffsetRef.current = centerOffset;
+  leftScoreRef.current = leftScore;
+  rightScoreRef.current = rightScore;
 
   const [countdownValue, setCountdownValue] = useState(COUNTDOWN_START);
   const [ceremonyKey, setCeremonyKey] = useState(0);
   const [particleBurstToken, setParticleBurstToken] = useState(0);
+  const [championPlayToken, setChampionPlayToken] = useState(0);
+  const [isResolutionVisible, setIsResolutionVisible] = useState(false);
 
   const countdownScale = useSharedValue(1);
   const countdownOpacity = useSharedValue(1);
@@ -121,6 +129,8 @@ export function useCeremonySequence({
   const contentLift = useSharedValue(0);
   const resolutionTranslateY = useSharedValue(220);
   const resolutionOpacity = useSharedValue(0);
+  const leftScoreValue = useSharedValue(0);
+  const rightScoreValue = useSharedValue(0);
 
   const sharedValuesRef = useRef<CeremonySharedValues>({
     countdownScale,
@@ -153,6 +163,8 @@ export function useCeremonySequence({
     contentLift,
     resolutionTranslateY,
     resolutionOpacity,
+    leftScoreValue,
+    rightScoreValue,
   });
 
   const sharedValues = sharedValuesRef.current;
@@ -209,6 +221,8 @@ export function useCeremonySequence({
     sv.contentLift.value = 0;
     sv.resolutionTranslateY.value = 220;
     sv.resolutionOpacity.value = 0;
+    sv.leftScoreValue.value = 0;
+    sv.rightScoreValue.value = 0;
   };
 
   const pulseCountdown = () => {
@@ -238,6 +252,7 @@ export function useCeremonySequence({
     }
 
     const sv = sharedValuesRef.current;
+    setIsResolutionVisible(true);
     const sheetEasing = Easing.out(Easing.cubic);
     const winnerIsLeft = winnerSideRef.current === 'left';
     const heroSpring = { damping: 14, stiffness: 128, mass: 0.88 };
@@ -340,16 +355,9 @@ export function useCeremonySequence({
     }
 
     const sv = sharedValuesRef.current;
-    sv.championOpacity.value = withTiming(1, { duration: 180 });
-    sv.championScale.value = withSequence(
-      withSpring(1.08, SPRING_CHAMPION),
-      withSpring(1, { damping: 16, stiffness: 180 }),
-    );
-    sv.championTranslateY.value = withSpring(0, SPRING_CHAMPION);
-    sv.championRotate.value = withSequence(
-      withSpring(2, { damping: 12, stiffness: 120 }),
-      withSpring(0, { damping: 14, stiffness: 160 }),
-    );
+    setChampionPlayToken(previous => previous + 1);
+    sv.trophyOpacity.value = withTiming(1, { duration: 180 });
+    sv.trophyScale.value = withSpring(1, { damping: 11, stiffness: 160 });
 
     schedule(generation, () => runCelebration(generation), TIMING.particlesDelay);
   };
@@ -366,9 +374,6 @@ export function useCeremonySequence({
       withTiming(1, { duration: 280 }),
       withTiming(0.85, { duration: 220 }),
     );
-
-    sv.trophyOpacity.value = withTiming(1, { duration: 260 });
-    sv.trophyScale.value = withSpring(1, { damping: 11, stiffness: 160 });
 
     schedule(generation, () => runChampionEntrance(generation), TIMING.championDelay);
   };
@@ -442,6 +447,11 @@ export function useCeremonySequence({
     }
 
     const sv = sharedValuesRef.current;
+    cancelAnimation(sv.leftScoreValue);
+    cancelAnimation(sv.rightScoreValue);
+    sv.leftScoreValue.value = leftScoreRef.current;
+    sv.rightScoreValue.value = rightScoreRef.current;
+
     const pulseScore = (flash: SharedValue<number>) => {
       flash.value = withSequence(
         withTiming(1, { duration: 120 }),
@@ -460,6 +470,19 @@ export function useCeremonySequence({
   const startCountdown = (generation: number) => {
     setCountdownValue(COUNTDOWN_START);
     pulseCountdown();
+
+    const sv = sharedValuesRef.current;
+    const rollMs = COUNTDOWN_START * COUNTDOWN_INTERVAL_MS;
+    sv.leftScoreValue.value = 0;
+    sv.rightScoreValue.value = 0;
+    sv.leftScoreValue.value = withTiming(leftScoreRef.current, {
+      duration: rollMs,
+      easing: Easing.out(Easing.cubic),
+    });
+    sv.rightScoreValue.value = withTiming(rightScoreRef.current, {
+      duration: rollMs,
+      easing: Easing.out(Easing.cubic),
+    });
 
     let remaining = COUNTDOWN_START;
 
@@ -484,6 +507,7 @@ export function useCeremonySequence({
 
   const startCeremony = useCallback(() => {
     const generation = generationRef.current;
+    setIsResolutionVisible(false);
     clearTimers();
     resetSharedValues();
     startCountdown(generation);
@@ -496,6 +520,8 @@ export function useCeremonySequence({
     resetSharedValues();
     setCountdownValue(COUNTDOWN_START);
     setParticleBurstToken(0);
+    setChampionPlayToken(0);
+    setIsResolutionVisible(false);
     setCeremonyKey(previous => previous + 1);
     startCeremony();
   }, [startCeremony]);
@@ -516,6 +542,8 @@ export function useCeremonySequence({
     countdownValue,
     ceremonyKey,
     particleBurstToken,
+    championPlayToken,
+    isResolutionVisible,
     sharedValues,
     replayCeremony,
   };

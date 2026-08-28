@@ -1,6 +1,9 @@
-import { Image, Text } from 'react-native';
+import { useState } from 'react';
+import { Image, Text, type TextStyle } from 'react-native';
 import Animated, {
+  runOnJS,
   type SharedValue,
+  useAnimatedReaction,
   useAnimatedStyle,
 } from 'react-native-reanimated';
 import type { ThemeColors } from '../../constants/theme';
@@ -10,14 +13,50 @@ import { creatorCardStylesByScheme } from './styles/CreatorCard.styles';
 
 interface CreatorCardProps {
   creator: Creator;
+  displayedScore: SharedValue<number>;
   scoreFlash: SharedValue<number>;
   goldGlow: SharedValue<number>;
   colors: ThemeColors;
   scoreLabel: string;
 }
 
+function LiveScore({
+  displayedScore,
+  scoreFlash,
+  goldGlow,
+  colors,
+  scoreStyle,
+}: {
+  displayedScore: SharedValue<number>;
+  scoreFlash: SharedValue<number>;
+  goldGlow: SharedValue<number>;
+  colors: ThemeColors;
+  scoreStyle: TextStyle;
+}) {
+  const [value, setValue] = useState(0);
+
+  useAnimatedReaction(
+    () => Math.round(displayedScore.value),
+    (current, previous) => {
+      if (current !== previous) {
+        runOnJS(setValue)(current);
+      }
+    },
+  );
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: 1 + scoreFlash.value * 0.16 }],
+    color: goldGlow.value > 0.05 ? colors.gold : colors.textPrimary,
+  }));
+
+  return (
+    <Animated.Text style={[scoreStyle, animatedStyle]}>{value}</Animated.Text>
+  );
+}
+
 function CreatorCard({
   creator,
+  displayedScore,
   scoreFlash,
   goldGlow,
   colors,
@@ -39,11 +78,6 @@ function CreatorCard({
     };
   });
 
-  const scoreStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: 1 + scoreFlash.value * 0.16 }],
-    color: scoreFlash.value > 0.4 ? colors.gold : colors.textPrimary,
-  }));
-
   return (
     <Animated.View style={[styles.panel, glowStyle]}>
       <Image source={{ uri: creator.avatar }} style={styles.avatar} />
@@ -54,9 +88,13 @@ function CreatorCard({
         {creator.category}
       </Text>
       <Text style={styles.scoreLabel}>{scoreLabel}</Text>
-      <Animated.Text style={[styles.score, scoreStyle]}>
-        {creator.score}
-      </Animated.Text>
+      <LiveScore
+        displayedScore={displayedScore}
+        scoreFlash={scoreFlash}
+        goldGlow={goldGlow}
+        colors={colors}
+        scoreStyle={styles.score}
+      />
       <Animated.View
         pointerEvents="none"
         style={[styles.flashOverlay, flashStyle]}

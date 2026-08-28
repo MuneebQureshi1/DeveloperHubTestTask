@@ -1,10 +1,10 @@
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, StatusBar, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ROUTES } from '../../../constants/routes';
 import { useGlobalStyles } from '../../../globalStyles';
-import { useAppTheme, useThemeStore } from '../../../store/useThemeStore';
+import { useAppTheme } from '../../../store/useThemeStore';
 import { useLanguageStore } from '../../../store/useLanguageStore';
 import type { HomeScreenProps } from '../../../types/navigation';
 import { resolveBattleOutcome } from '../../../types/creator';
@@ -22,8 +22,7 @@ import { stylesByScheme as ceremonyStylesByScheme } from '../styles/HomeScreen.s
 function HomeScreen({ navigation }: HomeScreenProps) {
   const { t } = useTranslation();
   const isRtl = useLanguageStore(state => state.isRtl);
-  const scheme = useThemeStore(state => state.scheme);
-  const { colors } = useAppTheme();
+  const { colors, scheme, isDark, setScheme } = useAppTheme();
   const globalStyles = useGlobalStyles();
   const ceremonyStyles = ceremonyStylesByScheme[scheme];
   const insets = useSafeAreaInsets();
@@ -35,11 +34,15 @@ function HomeScreen({ navigation }: HomeScreenProps) {
     countdownValue,
     ceremonyKey,
     particleBurstToken,
+    championPlayToken,
+    isResolutionVisible,
     sharedValues,
     replayCeremony,
   } = useCeremonySequence({
     winnerSide,
     centerOffset: WINNER_CENTER_OFFSET,
+    leftScore: leftCreator.score,
+    rightScore: rightCreator.score,
   });
 
   const leftCardStyle = useAnimatedStyle(() => ({
@@ -74,13 +77,6 @@ function HomeScreen({ navigation }: HomeScreenProps) {
     transform: [{ scale: sharedValues.trophyScale.value }],
   }));
 
-  const championBannerStyle = useAnimatedStyle(() => ({
-    opacity: Math.max(
-      sharedValues.trophyOpacity.value,
-      sharedValues.championOpacity.value,
-    ),
-  }));
-
   const resolutionPanelStyle = useAnimatedStyle(() => ({
     opacity: sharedValues.resolutionOpacity.value,
     transform: [{ translateY: sharedValues.resolutionTranslateY.value }],
@@ -88,13 +84,31 @@ function HomeScreen({ navigation }: HomeScreenProps) {
 
   return (
     <View style={[globalStyles.screen, ceremonyStyles.screen]}>
+      <StatusBar barStyle={colors.statusBar} />
       <View
         pointerEvents="box-none"
         style={[ceremonyStyles.topBar, { top: insets.top + Utility.SP_8 }]}
       >
-        <View pointerEvents="none" style={ceremonyStyles.topBarSide} />
+        <View style={ceremonyStyles.topBarSide}>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={isDark ? t('lightMode') : t('darkMode')}
+            onPress={() => setScheme(isDark ? 'light' : 'dark')}
+            hitSlop={8}
+            style={ceremonyStyles.themeButton}
+          >
+            <Text
+              style={[
+                ceremonyStyles.languageLabel,
+                isRtl ? globalStyles.writingRtl : globalStyles.writingLtr,
+              ]}
+            >
+              {isDark ? `☀️ ${t('lightMode')}` : `🌙 ${t('darkMode')}`}
+            </Text>
+          </Pressable>
+        </View>
         <View style={ceremonyStyles.topBarCenter}>
-          {countdownValue > 0 ? null : (
+          {isResolutionVisible ? (
             <Pressable
               accessibilityRole="button"
               accessibilityLabel={t('replayCeremony')}
@@ -106,7 +120,7 @@ function HomeScreen({ navigation }: HomeScreenProps) {
                 {t('replayCeremony')}
               </Text>
             </Pressable>
-          )}
+          ) : null}
         </View>
         <View style={ceremonyStyles.topBarSide}>
           <Pressable
@@ -136,19 +150,18 @@ function HomeScreen({ navigation }: HomeScreenProps) {
           ]}
           pointerEvents="none"
         >
-          <Animated.View style={[ceremonyStyles.championWrap, championBannerStyle]}>
+          <View style={ceremonyStyles.championWrap}>
             <Animated.Text style={[ceremonyStyles.trophy, trophyStyle]}>
               🏆
             </Animated.Text>
             <ChampionTitle
-              scale={sharedValues.championScale}
-              translateY={sharedValues.championTranslateY}
-              opacity={sharedValues.championOpacity}
-              rotate={sharedValues.championRotate}
+              key={ceremonyKey}
               colors={colors}
               title={t('champion')}
+              playToken={championPlayToken}
+              isRtl={isRtl}
             />
-          </Animated.View>
+          </View>
         </View>
 
         <View
@@ -159,6 +172,7 @@ function HomeScreen({ navigation }: HomeScreenProps) {
           <Animated.View style={[ceremonyStyles.cardAnchor, leftCardStyle]}>
             <CreatorCard
               creator={leftCreator}
+              displayedScore={sharedValues.leftScoreValue}
               scoreFlash={sharedValues.leftScoreFlash}
               goldGlow={sharedValues.leftGoldGlow}
               colors={colors}
@@ -168,6 +182,7 @@ function HomeScreen({ navigation }: HomeScreenProps) {
           <Animated.View style={[ceremonyStyles.cardAnchor, rightCardStyle]}>
             <CreatorCard
               creator={rightCreator}
+              displayedScore={sharedValues.rightScoreValue}
               scoreFlash={sharedValues.rightScoreFlash}
               goldGlow={sharedValues.rightGoldGlow}
               colors={colors}
@@ -200,25 +215,27 @@ function HomeScreen({ navigation }: HomeScreenProps) {
           />
         </View>
 
-        <Animated.View
-          style={[
-            ceremonyStyles.resolutionWrap,
-            { paddingBottom: insets.bottom + Utility.SP_12 },
-            resolutionPanelStyle,
-          ]}
-        >
-          <ResolutionButtons
-            colors={colors}
-            watchReplayLabel={t('watchReplay')}
-            backToStageLabel={t('backToStage')}
-            button1TranslateY={sharedValues.button1TranslateY}
-            button1Opacity={sharedValues.button1Opacity}
-            button1Scale={sharedValues.button1Scale}
-            button2TranslateY={sharedValues.button2TranslateY}
-            button2Opacity={sharedValues.button2Opacity}
-            button2Scale={sharedValues.button2Scale}
-          />
-        </Animated.View>
+        {isResolutionVisible ? (
+          <Animated.View
+            style={[
+              ceremonyStyles.resolutionWrap,
+              { paddingBottom: insets.bottom + Utility.SP_12 },
+              resolutionPanelStyle,
+            ]}
+          >
+            <ResolutionButtons
+              colors={colors}
+              watchReplayLabel={t('watchReplay')}
+              backToStageLabel={t('backToStage')}
+              button1TranslateY={sharedValues.button1TranslateY}
+              button1Opacity={sharedValues.button1Opacity}
+              button1Scale={sharedValues.button1Scale}
+              button2TranslateY={sharedValues.button2TranslateY}
+              button2Opacity={sharedValues.button2Opacity}
+              button2Scale={sharedValues.button2Scale}
+            />
+          </Animated.View>
+        ) : null}
       </View>
     </View>
   );

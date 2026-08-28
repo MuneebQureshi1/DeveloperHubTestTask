@@ -37,7 +37,7 @@ function ResolutionButton({
         accessibilityRole="button"
         style={
           isPrimary
-            ? [styles.buttonBase, { backgroundColor: colors.gold }]
+            ? [styles.buttonBase, { backgroundColor: colors.textPrimary }]
             : [
                 styles.buttonBase,
                 {

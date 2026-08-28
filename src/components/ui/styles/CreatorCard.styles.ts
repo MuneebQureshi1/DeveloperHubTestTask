@@ -65,7 +65,7 @@ function createStyles(colors: ThemeColors) {
       textAlign: 'center',
     },
     flashOverlay: {
-      backgroundColor: colors.gold,
+      backgroundColor: colors.textPrimary,
       borderRadius: Utility.SP_22,
       bottom: 0,
       left: 0,

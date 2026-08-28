@@ -1,31 +1,85 @@
-# Developer Hub Test Task
+# Developer Hub — Battle Winner Reveal
 
-React Native CLI project (not Expo). Work for this pass lives on the `Test_Task_2` branch.
+React Native CLI app (not Expo) for **Task 2**: a staged Battle “Winner Reveal” ceremony.
 
-The app opens on **Home**, which runs the Battle Winner Ceremony — a staged Reanimated animation sequence with two mock creators, score lock, winner reveal, and interrupt-safe replay.
+The app opens on **Home**. Two hardcoded creators face off in a VS layout; a 5-second countdown stands in for the real 20 seconds; then scores lock, the winner takes the stage, and resolution controls appear.
+
+Branch: `Test_Task_2`
+
+---
+
+## Preview
+
+Final frame after the ceremony (dark theme). Gold is reserved for the champion — title, card glow/border, and score. The loser recedes behind the winner. **Replay Ceremony**, **Watch Replay**, and **Back to Stage** only appear after the sequence finishes.
+
+![Winner Reveal ceremony — final dark-theme frame. Trophy and gold CHAMPION title above Amara K.’s winning card (score 120) with gold glow; Marcus T. receded behind; Watch Replay and Back to Stage at the bottom; Light, Replay Ceremony, and Language in the top bar.](docs/ceremony-final-dark.png)
+
+| | |
+| --- | --- |
+| Winner | Amara K. — Spoken Word — **120** |
+| Loser | Marcus T. — Beatbox — **98** |
+| Theme | Near-black background, white type, gold accents only on the winner |
+
+Light theme is available from the **☀️ Light / 🌙 Dark** chip on Home (top left).
+
+---
+
+## What the sequence does
+
+Auto-plays on mount. No live data, video, or sound.
+
+### Stage 1 — Score lock
+
+- Two creator cards sit side by side with a **VS** badge.
+- A **5-second** countdown pulses down (stand-in for 20s).
+- Scores roll up toward their finals during the countdown.
+- On **0**, both counters **lock**: a short flash/pulse, numbers freeze.
+
+### Stage 2 — Winner reveal
+
+- Loser’s card dims, scales down, and recedes.
+- Winner springs to **center**, scales up, and gets gold treatment (border + glow). Score turns gold.
+- **CHAMPION** enters with a **per-letter spring stagger** (not a fade-only). Trophy + gold underline.
+- Hand-rolled **confetti** (Reanimated, 36 pieces) bursts over the stage.
+
+### Stage 3 — Resolution
+
+Only after the climax:
+
+- **Watch Replay** and **Back to Stage** slide in (no-ops).
+- **Replay Ceremony** appears in the top bar.
+
+Tapping **Replay Ceremony** hides those controls immediately, cancels in-flight work, and restarts Stage 1. Rapid taps should not stack animations or crash.
+
+---
+
+## Stack
+
+| | |
+| --- | --- |
+| Runtime | React Native **0.87**, React **19**, TypeScript |
+| Animation | **Reanimated 4** (UI-thread worklets, shared values) |
+| Navigation | React Navigation native stack (Home → Settings) |
+| State | Zustand (theme + language) |
+| i18n | i18next + react-native-localize |
+
+Out of scope for this task: real video, live scores, audio, the Battle itself.
+
+---
 
 ## Prerequisites
 
-Complete these before cloning.
+1. **Node.js 22.11.0+** (`node -v` / `npm -v`)
+2. **Watchman** on macOS if Metro file watching is flaky
+3. Official RN environment: https://reactnative.dev/docs/set-up-your-environment
+4. **iOS:** Xcode, CocoaPods, Simulator
+5. **Android:** Android Studio, JDK, emulator (or a USB device with debugging), SDK licenses accepted
 
-1. Install Node.js 22.11.0 or newer.
-2. Install Watchman (macOS) if Metro file watching is unreliable.
-3. Follow the official React Native environment guide for your machine: https://reactnative.dev/docs/set-up-your-environment
-4. For iOS: install Xcode, CocoaPods, and the iOS Simulator.
-5. For Android: install Android Studio, a JDK, an emulator (or a USB device with USB debugging), and accept the Android SDK licenses.
-
-Confirm Node is ready:
-
-```sh
-node -v
-npm -v
-```
+---
 
 ## Setup
 
-### Step 1. Get the source
-
-Clone the repository and switch to this task branch:
+### 1. Clone and branch
 
 ```sh
 git clone https://github.com/MuneebQureshi1/DeveloperHubTestTask.git
@@ -33,149 +87,180 @@ cd DeveloperHubTestTask
 git checkout Test_Task_2
 ```
 
-If the repository is already on disk:
+Already cloned:
 
 ```sh
 git fetch origin
 git checkout Test_Task_2
 ```
 
-### Step 2. Install JavaScript packages
-
-From the project root:
+### 2. JavaScript packages
 
 ```sh
 npm install
 ```
 
-### Step 3. Install iOS pods (iOS only)
+### 3. iOS pods (iOS only)
 
-Run this the first time you clone, and again after native dependency changes (`react-native-reanimated`, `react-native-worklets`, `react-native-localize`, or `react-native-keychain`):
+First clone, and again after native deps change (`react-native-reanimated`, `react-native-worklets`, `react-native-localize`, `react-native-keychain`):
 
 ```sh
 bundle install
 bundle exec pod install --project-directory=ios
 ```
 
-Or from the `ios` folder (do not run `cd ios` twice):
+Or:
 
 ```sh
-cd ios
-pod install
-cd ..
+cd ios && pod install && cd ..
 ```
 
-Skip this step if you only plan to run Android.
+Skip this step for Android-only.
 
-### Step 4. Start Metro
-
-In the first terminal, from the project root:
+### 4. Metro
 
 ```sh
 npm start
 ```
 
-Leave this process running. If Metro was already running with a stale cache, stop it and start with a reset:
+Stale cache:
 
 ```sh
 npm start -- --reset-cache
 ```
 
-### Step 5. Run on iOS
-
-In a second terminal:
+### 5. iOS
 
 ```sh
 npm run ios
 ```
 
-The app opens on Home with the Winner Ceremony. The first launch can take several minutes while Xcode builds.
-
-To target a specific simulator:
+First Xcode build can take several minutes. Specific simulator:
 
 ```sh
 npx react-native run-ios --simulator="iPhone 16"
 ```
 
-### Step 6. Run on Android
+### 6. Android
 
-Start an emulator from Android Studio (Device Manager), then in a second terminal:
+Start an emulator, then:
 
 ```sh
 npm run android
 ```
 
-### Step 7. Run unit tests (optional)
+### 7. Tests (optional)
 
 ```sh
 npm test -- --watchAll=false --watchman=false
 ```
 
-## What you should see
+---
 
-1. Two creator cards in a VS layout with a 5-second animated countdown.
-2. Score lock pulse on both cards when the countdown hits zero.
-3. Loser recedes while the winner moves to center with gold treatment.
-4. CHAMPION title enters with spring choreography and gold particles burst.
-5. Watch Replay and Back to Stage buttons animate in at the end.
-6. **Replay Ceremony** (top of screen) safely restarts the sequence at any moment.
+## How to review
 
-Dark appearance is recommended for the intended near-black, gold-accented look. Change it in Settings via Home if needed.
+1. Launch — Home is the ceremony. VS layout, countdown from **5**, scores rolling.
+2. At **0** — lock flash; numbers stop.
+3. Loser recedes; winner centers with gold glow.
+4. **CHAMPION** letter stagger + confetti.
+5. Bottom buttons and **Replay Ceremony** appear together.
+6. Tap **Replay Ceremony** — sequence restarts cleanly; those buttons hide until the next finish.
+7. Toggle **Light / Dark** on Home. Gold should still only sit on the winner.
+
+---
 
 ## Project layout
 
-`App.tsx` hydrates language and theme, and mounts navigation.
+```
+App.tsx                          # hydrate theme/language, navigation, StatusBar
+src/
+  screens/Home/ui/HomeScreen.tsx # ceremony screen
+  screens/Home/styles/           # Home layout (arena, top bar, resolution sheet)
+  screens/Settings/              # language + appearance (also toggleable on Home)
+  hooks/useCeremonySequence.ts   # timeline, shared values, interrupt-safe replay
+  components/ui/
+    CreatorCard.tsx
+    CountdownDisplay.tsx
+    ChampionTitle.tsx            # letter stagger
+    CelebrationParticles.tsx     # Reanimated confetti
+    ResolutionButtons.tsx
+    styles/                      # matching StyleSheets
+  constants/
+    constantsArray.ts            # MOCK_CREATORS
+    theme.ts                     # dark / light tokens (gold, confetti, etc.)
+  types/creator.ts               # resolveBattleOutcome
+  navigation/RootNavigator.tsx   # Home is the initial route
+  store/                         # theme + language (Zustand)
+docs/
+  ceremony-final-dark.png        # screenshot used above
+```
 
-`src/screens/Home/ui/HomeScreen.tsx` — hosts the Winner Ceremony UI (plus Language → Settings).
+---
 
-`src/components/ui/` — ceremony UI pieces (cards, countdown, champion title, particles, buttons).
+## Architecture
 
-`src/components/styles/` — styles for those shared components.
+### Orchestration
 
-`src/screens/WinnerCeremony/` — sequence hook, screen styles, and mock data.
+`useCeremonySequence` owns the timeline:
 
-`src/navigation/RootNavigator.tsx` — native stack; Home is the initial route.
+**countdown + rolling scores → score lock → winner/loser reveal → gold → CHAMPION stagger → confetti → resolution UI**
 
-## Technical Decisions
+Each stage `schedule()`s the next with a timeout that no-ops if the **generation id** no longer matches (replay or unmount).
 
-### Why Reanimated
+Transforms, opacity, gold glow, countdown pulse, confetti, and button entrance run on the **UI thread** via Reanimated shared values (`withTiming`, `withSpring`, `withSequence`, `withDelay`). React state is only used for the countdown digit, displayed score text, particle/champion play tokens, and whether resolution chrome is mounted.
 
-React Native Reanimated runs the ceremony choreography on the UI thread via shared values and animated styles. Card transforms, score lock pulses, champion entrance, and resolution buttons avoid per-frame React re-renders. Only the countdown digit and replay key use React state.
+### Interrupt-safe replay
 
-### Sequence orchestration
+Replay:
 
-`useCeremonySequence` drives a staged timeline: countdown → score lock → winner/loser reveal → gold treatment → CHAMPION title → particles → resolution buttons. Each stage schedules the next with guarded timeouts that check an active generation id before running.
+1. Increments `generationRef`
+2. Clears JS intervals/timeouts
+3. `cancelAnimation` on every shared value
+4. Resets values to Stage 1
+5. Unmounts confetti / remounts via `ceremonyKey`
+6. Hides Replay + resolution buttons until Stage 3 again
 
-### Replay interruption
+Stale callbacks from the previous run are ignored.
 
-Each replay increments a generation counter, clears JS timers, calls `cancelAnimation` on every shared value, resets all values to initial state, and starts Stage 1 again. Stale timeouts and animation callbacks from prior runs are ignored when their generation no longer matches.
+### Theme and gold
 
-### Performance
+Home reads `useAppTheme()`. Dark tokens: background `#0A0A0A`, card `#141414`, gold `#D4A94A`. Light has a cream field and the same gold-on-winner rule.
 
-Animations use `withTiming`, `withSpring`, and `withSequence` on shared values. Particle count is capped at 16. Creator cards compose a single animated transform per side. No sound, network, or heavy layout work runs during the sequence.
+Gold is **not** used on Watch Replay / Back to Stage. Those stay white / outlined so the champion card remains the only gold object on stage.
 
-### Animation sequencing (one sentence)
+### Mock data
 
-The ceremony builds suspense with the countdown and score lock, then shifts hierarchy by receding the loser and elevating the winner before celebrating with the CHAMPION title and particles, ending with resolution buttons so the viewer can breathe after the climax.
+`src/constants/constantsArray.ts` — Amara K. (120) vs Marcus T. (98). Higher score wins (`resolveBattleOutcome`). Avatars are remote `pravatar` URLs.
+
+---
+
+## Why the sequence is timed this way
+
+The ceremony builds suspense with the countdown and rolling scores, locks the result, then shifts hierarchy by receding the loser and centering the winner before the CHAMPION letter stagger and confetti, ending with resolution buttons so the viewer can breathe after the climax.
+
+Resolution chrome (including **Replay Ceremony**) stays off-screen until that breath — it should not compete with the lock, the move to center, or the title.
+
+---
 
 ## With more time
 
-- Richer particle shapes, trails, and haptic feedback on score lock
-- VoiceOver labels and reduced-motion support
-- Dynamic winner data from props or navigation params
-- Tablet and landscape adaptive layouts
-- Finer motion polish (easing curves, camera-style parallax)
-- Unit tests for `resolveBattleOutcome` and replay generation safety
+- Richer particle shapes, trails, and a haptic tick on score lock
+- `prefers-reduced-motion` and fuller VoiceOver on the staged beats
+- Winner passed in via props / navigation instead of hardcoded mocks
+- Tablet and landscape layout
+- Camera-style parallax and tighter easing on the hero spring
+- Unit tests for `resolveBattleOutcome` and generation-guarded replay
+- A mid-sequence Replay affordance that still stays visually quiet (spec asked for interrupt-during-motion; the current Replay chip waits until Stage 3 so the ceremony stays clean)
 
-## Screen recording checklist
+---
 
-Use a 30–60 second capture (iOS Simulator or device):
+## Screen recording (30–60s)
 
-1. Launch app — show VS layout and countdown starting at **5**.
-2. Let countdown reach **0** — show score lock pulse on both cards.
-3. Show loser dimming/receding and winner moving center with gold glow.
-4. Show **CHAMPION** spring entrance and particle burst.
-5. Show **Watch Replay** and **Back to Stage** buttons animating in.
-6. Tap **Replay Ceremony** during an active animation (e.g. mid-countdown or during winner movement).
-7. Confirm clean restart with no overlapping animations or crashes.
-8. Optional: tap Replay rapidly 2–3 times to verify stability.
+1. Launch — VS layout, countdown **5**.
+2. Countdown **0** — lock pulse on both scores.
+3. Loser recedes; winner to center with gold.
+4. **CHAMPION** stagger + confetti.
+5. **Watch Replay** / **Back to Stage** (and **Replay Ceremony**) animate / appear.
+6. Tap **Replay Ceremony** — chrome hides, sequence restarts, no stacked motion.
+7. Optional: finish again and tap Replay twice quickly.
+8. Optional: toggle Light/Dark on a finished frame.
