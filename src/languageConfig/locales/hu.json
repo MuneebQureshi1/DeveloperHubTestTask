@@ -1,14 +1,8 @@
 {
-  "follow": "Követés",
-  "following": "Követed",
-  "battleLive": "Battle élőben",
-  "battleIn": "Battle {{time}} múlva",
-  "applaud": "Taps, {{count}}",
   "language": "Nyelv",
   "settings": "Beállítások",
   "selectLanguage": "Nyelv kiválasztása",
   "appearance": "Megjelenés",
   "lightMode": "Világos",
-  "darkMode": "Sötét",
-  "buffering": "Betöltés"
+  "darkMode": "Sötét"
 }

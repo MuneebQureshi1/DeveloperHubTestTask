@@ -1,14 +1,8 @@
 {
-  "follow": "متابعة",
-  "following": "تتم المتابعة",
-  "battleLive": "المعركة مباشرة",
-  "battleIn": "المعركة خلال {{time}}",
-  "applaud": "تصفيق، {{count}}",
   "language": "اللغة",
   "settings": "الإعدادات",
   "selectLanguage": "اختر اللغة",
   "appearance": "المظهر",
   "lightMode": "فاتح",
-  "darkMode": "داكن",
-  "buffering": "جاري التحميل"
+  "darkMode": "داكن"
 }

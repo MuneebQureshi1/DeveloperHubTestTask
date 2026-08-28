@@ -1,14 +1,8 @@
 {
-  "follow": "关注",
-  "following": "已关注",
-  "battleLive": "对战进行中",
-  "battleIn": "{{time}} 后开始对战",
-  "applaud": "鼓掌，{{count}}",
   "language": "语言",
   "settings": "设置",
   "selectLanguage": "选择语言",
   "appearance": "外观",
   "lightMode": "浅色",
-  "darkMode": "深色",
-  "buffering": "正在缓冲"
+  "darkMode": "深色"
 }

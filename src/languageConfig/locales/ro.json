@@ -1,14 +1,8 @@
 {
-  "follow": "Urmărește",
-  "following": "Urmărești",
-  "battleLive": "Battle live",
-  "battleIn": "Battle în {{time}}",
-  "applaud": "Aplauze, {{count}}",
   "language": "Limbă",
   "settings": "Setări",
   "selectLanguage": "Selectează limba",
   "appearance": "Aspect",
   "lightMode": "Deschis",
-  "darkMode": "Întunecat",
-  "buffering": "Se încarcă"
+  "darkMode": "Întunecat"
 }

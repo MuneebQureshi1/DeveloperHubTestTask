@@ -1,14 +1,8 @@
 {
-  "follow": "Suivre",
-  "following": "Abonné",
-  "battleLive": "Battle en direct",
-  "battleIn": "Battle dans {{time}}",
-  "applaud": "Applaudir, {{count}}",
   "language": "Langue",
   "settings": "Paramètres",
   "selectLanguage": "Choisir la langue",
   "appearance": "Apparence",
   "lightMode": "Clair",
-  "darkMode": "Sombre",
-  "buffering": "Chargement"
+  "darkMode": "Sombre"
 }

@@ -1,14 +1,8 @@
 {
-  "follow": "Theo dõi",
-  "following": "Đang theo dõi",
-  "battleLive": "Battle trực tiếp",
-  "battleIn": "Battle sau {{time}}",
-  "applaud": "Vỗ tay, {{count}}",
   "language": "Ngôn ngữ",
   "settings": "Cài đặt",
   "selectLanguage": "Chọn ngôn ngữ",
   "appearance": "Giao diện",
   "lightMode": "Sáng",
-  "darkMode": "Tối",
-  "buffering": "Đang tải"
+  "darkMode": "Tối"
 }

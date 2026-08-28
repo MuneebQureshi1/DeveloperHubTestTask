@@ -1,14 +1,8 @@
 {
-  "follow": "Följ",
-  "following": "Följer",
-  "battleLive": "Battle live",
-  "battleIn": "Battle om {{time}}",
-  "applaud": "Applåd, {{count}}",
   "language": "Språk",
   "settings": "Inställningar",
   "selectLanguage": "Välj språk",
   "appearance": "Utseende",
   "lightMode": "Ljust",
-  "darkMode": "Mörkt",
-  "buffering": "Buffrar"
+  "darkMode": "Mörkt"
 }

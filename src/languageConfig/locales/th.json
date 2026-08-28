@@ -1,14 +1,8 @@
 {
-  "follow": "ติดตาม",
-  "following": "กำลังติดตาม",
-  "battleLive": "แบทเทิลสด",
-  "battleIn": "แบทเทิลใน {{time}}",
-  "applaud": "ปรบมือ {{count}}",
   "language": "ภาษา",
   "settings": "การตั้งค่า",
   "selectLanguage": "เลือกภาษา",
   "appearance": "ลักษณะ",
   "lightMode": "สว่าง",
-  "darkMode": "มืด",
-  "buffering": "กำลังโหลด"
+  "darkMode": "มืด"
 }

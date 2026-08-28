@@ -1,14 +1,8 @@
 {
-  "follow": "Sledovat",
-  "following": "Sledujete",
-  "battleLive": "Battle živě",
-  "battleIn": "Battle za {{time}}",
-  "applaud": "Potlesk, {{count}}",
   "language": "Jazyk",
   "settings": "Nastavení",
   "selectLanguage": "Vyberte jazyk",
   "appearance": "Vzhled",
   "lightMode": "Světlý",
-  "darkMode": "Tmavý",
-  "buffering": "Načítání"
+  "darkMode": "Tmavý"
 }

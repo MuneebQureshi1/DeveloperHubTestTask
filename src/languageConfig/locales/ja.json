@@ -1,14 +1,8 @@
 {
-  "follow": "フォロー",
-  "following": "フォロー中",
-  "battleLive": "バトルライブ",
-  "battleIn": "バトルまで {{time}}",
-  "applaud": "拍手、{{count}}",
   "language": "言語",
   "settings": "設定",
   "selectLanguage": "言語を選択",
   "appearance": "外観",
   "lightMode": "ライト",
-  "darkMode": "ダーク",
-  "buffering": "読み込み中"
+  "darkMode": "ダーク"
 }

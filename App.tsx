@@ -9,7 +9,6 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useGlobalStyles } from './src/globalStyles';
 import './src/languageConfig/i18n';
 import RootNavigator from './src/navigation/RootNavigator';
-import { useCurrentTimeStore } from './src/store/useCurrentTimeStore';
 import { useLanguageStore } from './src/store/useLanguageStore';
 import { useAppTheme, useThemeStore } from './src/store/useThemeStore';
 
@@ -19,12 +18,8 @@ function App() {
   const globalStyles = useGlobalStyles();
 
   useEffect(() => {
-    useCurrentTimeStore.getState().start();
     useLanguageStore.getState().hydrate();
     useThemeStore.getState().hydrate();
-    return () => {
-      useCurrentTimeStore.getState().stop();
-    };
   }, []);
 
   return (

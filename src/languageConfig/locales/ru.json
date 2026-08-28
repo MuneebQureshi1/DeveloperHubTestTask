@@ -1,14 +1,8 @@
 {
-  "follow": "Подписаться",
-  "following": "Вы подписаны",
-  "battleLive": "Баттл в эфире",
-  "battleIn": "Баттл через {{time}}",
-  "applaud": "Аплодисменты, {{count}}",
   "language": "Язык",
   "settings": "Настройки",
   "selectLanguage": "Выберите язык",
   "appearance": "Оформление",
   "lightMode": "Светлая",
-  "darkMode": "Тёмная",
-  "buffering": "Буферизация"
+  "darkMode": "Тёмная"
 }

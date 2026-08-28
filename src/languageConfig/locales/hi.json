@@ -1,14 +1,8 @@
 {
-  "follow": "फॉलो",
-  "following": "फॉलो कर रहे हैं",
-  "battleLive": "बैटल लाइव",
-  "battleIn": "बैटल {{time}} में",
-  "applaud": "तालियाँ, {{count}}",
   "language": "भाषा",
   "settings": "सेटिंग्स",
   "selectLanguage": "भाषा चुनें",
   "appearance": "दिखावट",
   "lightMode": "हल्का",
-  "darkMode": "गहरा",
-  "buffering": "बफ़र हो रहा है"
+  "darkMode": "गहरा"
 }

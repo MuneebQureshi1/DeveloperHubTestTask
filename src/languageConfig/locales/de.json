@@ -1,14 +1,8 @@
 {
-  "follow": "Folgen",
-  "following": "Folgst du",
-  "battleLive": "Battle live",
-  "battleIn": "Battle in {{time}}",
-  "applaud": "Applaus, {{count}}",
   "language": "Sprache",
   "settings": "Einstellungen",
   "selectLanguage": "Sprache wählen",
   "appearance": "Erscheinungsbild",
   "lightMode": "Hell",
-  "darkMode": "Dunkel",
-  "buffering": "Puffern"
+  "darkMode": "Dunkel"
 }

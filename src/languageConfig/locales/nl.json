@@ -1,14 +1,8 @@
 {
-  "follow": "Volgen",
-  "following": "Volgend",
-  "battleLive": "Battle live",
-  "battleIn": "Battle over {{time}}",
-  "applaud": "Applaus, {{count}}",
   "language": "Taal",
   "settings": "Instellingen",
   "selectLanguage": "Selecteer taal",
   "appearance": "Weergave",
   "lightMode": "Licht",
-  "darkMode": "Donker",
-  "buffering": "Bufferen"
+  "darkMode": "Donker"
 }

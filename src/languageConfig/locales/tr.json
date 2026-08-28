@@ -1,14 +1,8 @@
 {
-  "follow": "Takip et",
-  "following": "Takip ediliyor",
-  "battleLive": "Battle canlı",
-  "battleIn": "Battle {{time}} içinde",
-  "applaud": "Alkış, {{count}}",
   "language": "Dil",
   "settings": "Ayarlar",
   "selectLanguage": "Dil seç",
   "appearance": "Görünüm",
   "lightMode": "Açık",
-  "darkMode": "Koyu",
-  "buffering": "Yükleniyor"
+  "darkMode": "Koyu"
 }

@@ -8,17 +8,7 @@ export interface ThemeColors {
   textPrimary: string;
   textSecondary: string;
   gold: string;
-  battleLive: string;
-  overlay: string;
-  scrim: string;
   chipBackground: string;
-  followOutline: string;
-  onGold: string;
-  overlayText: string;
-  overlayTextSecondary: string;
-  shimmerBase: string;
-  shimmerHighlight: string;
-  shimmerBone: string;
   statusBar: Extract<StatusBarStyle, 'light-content' | 'dark-content'>;
 }
 
@@ -28,17 +18,7 @@ export const darkColors: ThemeColors = {
   textPrimary: '#FFFFFF',
   textSecondary: 'rgba(255, 255, 255, 0.78)',
   gold: '#D4A94A',
-  battleLive: '#E53935',
-  overlay: 'rgba(0, 0, 0, 0.28)',
-  scrim: 'rgba(0, 0, 0, 0.58)',
   chipBackground: 'rgba(0, 0, 0, 0.55)',
-  followOutline: 'rgba(255, 255, 255, 0.4)',
-  onGold: '#1A1408',
-  overlayText: '#FFFFFF',
-  overlayTextSecondary: 'rgba(255, 255, 255, 0.78)',
-  shimmerBase: '#111111',
-  shimmerHighlight: '#FFFFFF',
-  shimmerBone: 'rgba(255, 255, 255, 0.12)',
   statusBar: 'light-content',
 };
 
@@ -48,17 +28,7 @@ export const lightColors: ThemeColors = {
   textPrimary: '#1A1408',
   textSecondary: 'rgba(26, 20, 8, 0.62)',
   gold: '#B8862F',
-  battleLive: '#C62828',
-  overlay: 'rgba(0, 0, 0, 0.22)',
-  scrim: 'rgba(0, 0, 0, 0.48)',
   chipBackground: 'rgba(255, 255, 255, 0.92)',
-  followOutline: 'rgba(255, 255, 255, 0.55)',
-  onGold: '#1A1408',
-  overlayText: '#FFFFFF',
-  overlayTextSecondary: 'rgba(255, 255, 255, 0.82)',
-  shimmerBase: '#E8E0D4',
-  shimmerHighlight: '#FFFFFF',
-  shimmerBone: 'rgba(26, 20, 8, 0.1)',
   statusBar: 'dark-content',
 };
 

@@ -1,14 +1,8 @@
 {
-  "follow": "فالو",
-  "following": "فالو کر رہے ہیں",
-  "battleLive": "بیٹل لائیو",
-  "battleIn": "بیٹل {{time}} میں",
-  "applaud": "تالی، {{count}}",
   "language": "زبان",
   "settings": "ترتیبات",
   "selectLanguage": "زبان منتخب کریں",
   "appearance": "ظاہری شکل",
   "lightMode": "روشن",
-  "darkMode": "تاریک",
-  "buffering": "بفر ہو رہا ہے"
+  "darkMode": "تاریک"
 }

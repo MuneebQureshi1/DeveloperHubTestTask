@@ -1,14 +1,8 @@
 {
-  "follow": "Ikuti",
-  "following": "Mengikuti",
-  "battleLive": "Battle langsung",
-  "battleIn": "Battle dalam {{time}}",
-  "applaud": "Tepuk tangan, {{count}}",
   "language": "Bahasa",
   "settings": "Pengaturan",
   "selectLanguage": "Pilih bahasa",
   "appearance": "Tampilan",
   "lightMode": "Terang",
-  "darkMode": "Gelap",
-  "buffering": "Memuat"
+  "darkMode": "Gelap"
 }

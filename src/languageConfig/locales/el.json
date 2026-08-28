@@ -1,14 +1,8 @@
 {
-  "follow": "Ακολουθήστε",
-  "following": "Ακολουθείτε",
-  "battleLive": "Μάχη ζωντανά",
-  "battleIn": "Μάχη σε {{time}}",
-  "applaud": "Χειροκρότημα, {{count}}",
   "language": "Γλώσσα",
   "settings": "Ρυθμίσεις",
   "selectLanguage": "Επιλογή γλώσσας",
   "appearance": "Εμφάνιση",
   "lightMode": "Φωτεινό",
-  "darkMode": "Σκοτεινό",
-  "buffering": "Φόρτωση"
+  "darkMode": "Σκοτεινό"
 }
