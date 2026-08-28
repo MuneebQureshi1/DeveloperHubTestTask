@@ -13,6 +13,7 @@ import { MOCK_PERFORMANCES } from '../../constants/constantsArray';
 import { colors } from '../../constants/theme';
 import { CurrentTimeProvider } from '../../hooks/useCurrentTime';
 import type { Performance } from '../../types/performance';
+import type { HomeScreenProps } from '../../types/navigation';
 
 const VIEWABILITY_CONFIG = {
   itemVisiblePercentThreshold: 80,
@@ -22,7 +23,7 @@ function keyExtractor(item: Performance) {
   return item.id;
 }
 
-function HomeScreen() {
+function HomeScreen(_props: HomeScreenProps) {
   const { height: windowHeight } = useWindowDimensions();
   const [listHeight, setListHeight] = useState(windowHeight);
   const [followedById, setFollowedById] = useState<Record<string, boolean>>({});
