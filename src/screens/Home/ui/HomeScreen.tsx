@@ -51,7 +51,6 @@ function HomeScreen({ navigation }: HomeScreenProps) {
   const activeIndex = MOCK_PERFORMANCES.findIndex(
     item => item.id === activePerformanceId,
   );
-  const feedLength = MOCK_PERFORMANCES.length;
 
   const onViewableItemsChanged = useRef(
     ({ viewableItems }: { viewableItems: Array<{ item?: Performance }> }) => {
@@ -141,9 +140,9 @@ function HomeScreen({ navigation }: HomeScreenProps) {
           showsVerticalScrollIndicator={false}
           overScrollMode="never"
           getItemLayout={getItemLayout}
-          initialNumToRender={feedLength}
-          maxToRenderPerBatch={feedLength}
-          windowSize={feedLength + 2}
+          initialNumToRender={1}
+          maxToRenderPerBatch={1}
+          windowSize={3}
           removeClippedSubviews={false}
           bounces={false}
         />
